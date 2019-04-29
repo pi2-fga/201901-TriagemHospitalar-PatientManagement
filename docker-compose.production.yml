@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  app:
+    image: registry.gitlab.com/hospital-triage-station/applications/patient-management:${IMAGE_TAG}
+    build:
+      context: ./
