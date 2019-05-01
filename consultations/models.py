@@ -14,13 +14,13 @@ class Patient(models.Model):
     not be accessed directly.
     """
 
-    first_name = models.CharField()
-    last_name = models.CharField()
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
     birthday = models.DateTimeField()
-    gender = models.CharField()
+    gender = models.CharField(max_length=1)
     id_document = models.ImageField()
-    identification = models.CharField()
-    telefone_numbers = models.CharField()
+    identification = models.CharField(max_length=200)
+    telefone_numbers = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -64,13 +64,13 @@ class Triage(models.Model):
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
     blood_glucose = models.IntegerField()
-    blood_pressure = models.CharField()  # Pair of values
+    blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
-    alergies = models.CharField()  # List of values
-    continuos_medication = models.CharField()  # List of values
-    previous_diagnosis =  models.CharField()  # List of values
+    alergies = models.CharField(max_length=500)  # List of values
+    continuos_medication = models.CharField(max_length=500)  # List of values
+    previous_diagnosis =  models.CharField(max_length=500)  # List of values
     height = models.FloatField()
-    health_insurance = models.CharField()
+    health_insurance = models.CharField(max_length=200)
     health_insurance_document = models.ImageField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
