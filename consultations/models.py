@@ -1,6 +1,6 @@
-from django.db import models
-
 import json
+from django.db import models
+from consultations.utils import validate_birthdate
 
 
 class Patient(models.Model):
@@ -16,11 +16,13 @@ class Patient(models.Model):
 
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
-    birthday = models.DateTimeField()
+    birthdate = models.DateField(null=True, validators=[validate_birthdate])
     gender = models.CharField(max_length=1)
     id_document = models.ImageField()
     identification = models.CharField(max_length=200)
     telefone_numbers = models.CharField(max_length=500)
+    health_insurance = models.CharField(max_length=200, blank=True)
+    health_insurance_document = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -36,7 +38,7 @@ class Patient(models.Model):
             last_name=self.last_name
         )
         return full_name.strip()
-    
+
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
@@ -60,7 +62,16 @@ class Triage(models.Model):
     as a JSON formatted string. Therefore,
     they should not be accessed directly.
     """
-
+    VERMELHO = 0
+    AMARELO = 1
+    VERDE = 2
+    AZUL = 3
+    TRIAGE_RISK_CATEGORIES = [
+        (VERMELHO, 'Vermelho'),
+        (AMARELO, 'Amarelo'),
+        (VERDE, 'Verde'),
+        (AZUL, 'Azul'),
+    ]
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
     blood_glucose = models.IntegerField()
@@ -68,12 +79,15 @@ class Triage(models.Model):
     blood_oxygen_level = models.FloatField()
     alergies = models.CharField(max_length=500)  # List of values
     continuos_medication = models.CharField(max_length=500)  # List of values
-    previous_diagnosis =  models.CharField(max_length=500)  # List of values
+    previous_diagnosis = models.CharField(max_length=500)  # List of values
     height = models.FloatField()
-    health_insurance = models.CharField(max_length=200)
-    health_insurance_document = models.ImageField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    ticket_number = models.IntegerField()
+    risk_level = models.IntegerField(
+            choices=TRIAGE_RISK_CATEGORIES,
+            default=VERMELHO,
+    )
 
     def set_blood_pressure(self, x):
         self.blood_pressure = json.dumps(x)
