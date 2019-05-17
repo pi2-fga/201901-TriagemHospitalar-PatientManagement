@@ -8,7 +8,7 @@
  .bd-navbar {
     min-height: 4rem;
     /* background-color: #563d7c; */
-    background-color: #540B0E;
+    background-color: #1D3194;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
   
@@ -972,14 +972,14 @@
   
   .btn-bd-download {
     font-weight: 600;
-    color: #E09F3E;
-    border-color: #E09F3E;
+    color: #fff;
+    border-color: #fff;
   }
   
   .btn-bd-download:hover, .btn-bd-download:active {
-    color: #2a2730;
-    background-color: #E09F3E;
-    border-color: #E09F3E;
+    color: #1d3194;
+    background-color: #fff;
+    border-color: #fff;
   }
   
   .btn-bd-download:focus {
