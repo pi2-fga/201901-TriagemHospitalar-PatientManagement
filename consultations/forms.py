@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from consultations.models import Patient
 
 
-class PacientRegistrationForm(forms.ModelForm):
+class PatientRegistrationForm(forms.ModelForm):
     """
     Class for Patient registration form.
     """

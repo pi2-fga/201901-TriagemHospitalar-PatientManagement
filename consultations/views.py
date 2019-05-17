@@ -1,16 +1,15 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import FormView
-from consultations.forms import PacientRegistrationForm
+from consultations.forms import PatientRegistrationForm
 
 
-class PacientRegistrationView(FormView):
-    template_name = 'pacient_registration.html'
-    form_class = PacientRegistrationForm
+class PatientRegistrationView(FormView):
+    template_name = 'patient_registration.html'
+    form_class = PatientRegistrationForm
     success_url = '/'
 
     def post(self, request):
-
-        form = PacientRegistrationForm(request.POST)
+        form = PatientRegistrationForm(request.POST)
 
         if form.is_valid():
             user = form.save(commit=False)
