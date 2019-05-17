@@ -11,7 +11,7 @@ class Consultation(models.Model):
     """
     medical_opinion = models.CharField(max_length=500)
     medic = models.ForeignKey(Medic, on_delete=models.PROTECT)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     is_patient_released = models.BooleanField(default=False)
 
 

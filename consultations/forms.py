@@ -13,41 +13,41 @@ class PatientRegistrationForm(forms.ModelForm):
     }
     first_name = forms.CharField(
         label=_("Nome"),
-        help_text=_("Digite aqui o primeiro nome do paciente")
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o primeiro nome do paciente")})
     )
     last_name = forms.CharField(
         label=_("Sobrenome"),
-        help_text=_("Digite aqui o sobrenome do  paciente")
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o sobrenome do  paciente")})
     )
     birthdate = forms.DateField(
         label=_("Data de Nascimento"),
-        help_text=_("Data de nascimento do paciente"),
+        widget=forms.TextInput(attrs={'placeholder':_("Data de nascimento do paciente")})
     )
     telefone_number = forms.CharField(
         label=_("Número de telefone"),
-        help_text=_("Digite aqui o número de contato do paciente")
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o número de contato do paciente")})
     )
     cellphone_number = forms.CharField(
         label=_("Número de celular"),
-        help_text=_("Digite aqui o número de contato do paciente")
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o número de contato do paciente")})
     )
     email = forms.CharField(
         label=_("E-mail"),
-        help_text=_("Digite aqui o seu e-mail"),
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o seu e-mail")}),
         validators=[validate_email]
     )
     health_insurance = forms.CharField(
         label=_("Plano de Saúde"),
-        help_text=_("Digite aqui o plano de saúde, caso seja apresentado"),
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o plano de saúde, caso seja apresentado")}),
     )
     health_insurance_document = forms.ImageField(
         label=_("Documento do Plano de Saúde"),
-        help_text=_("Cópia do plano de saúde, caso seja apresentado"),
+        widget=forms.TextInput(attrs={'placeholder':_("Cópia do plano de saúde, caso seja apresentado")}),
     )
 
     class Meta:
         model = Patient
-        fields = ("first_name", "last_name", "birthdate", "telefone_numbers",
+        fields = ("first_name", "last_name", "birthdate", 
                   "health_insurance", "health_insurance_document")
 
     def clean_phone_numbers(self):
