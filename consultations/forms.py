@@ -3,6 +3,8 @@ from django.core.validators import validate_email
 from django.utils.translation import ugettext_lazy as _
 from consultations.models import Patient
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class PatientRegistrationForm(forms.ModelForm):
     """
@@ -21,7 +23,7 @@ class PatientRegistrationForm(forms.ModelForm):
     )
     birthdate = forms.DateField(
         label=_("Data de Nascimento"),
-        widget=forms.TextInput(attrs={'placeholder':_("Data de nascimento do paciente")})
+        widget=DateInput(attrs={'placeholder':_("Data de nascimento do paciente")})
     )
     telefone_number = forms.CharField(
         label=_("Número de telefone"),
@@ -33,7 +35,7 @@ class PatientRegistrationForm(forms.ModelForm):
     )
     email = forms.CharField(
         label=_("E-mail"),
-        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o seu e-mail")}),
+        widget=forms.EmailInput(attrs={'placeholder':_("Digite aqui o seu e-mail")}),
         validators=[validate_email]
     )
     health_insurance = forms.CharField(
@@ -42,13 +44,25 @@ class PatientRegistrationForm(forms.ModelForm):
     )
     health_insurance_document = forms.ImageField(
         label=_("Documento do Plano de Saúde"),
-        widget=forms.TextInput(attrs={'placeholder':_("Cópia do plano de saúde, caso seja apresentado")}),
+        widget=forms.FileInput(attrs={'placeholder':_("Cópia do plano de saúde, caso seja apresentado")}),
+    )
+    id_document = forms.ImageField(
+        label=_("Documento do identificação"),
+        widget=forms.FileInput(attrs={'placeholder':_("Neste campo você deve enviar: identidade, CNH, ou algum documento ofical com foto que possa identificá-lo. ")}),
+    )
+    identification = forms.CharField(
+        label=_("CPF"),
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui seu cpf")}),
     )
 
+    gender = forms.CharField(
+        label=_("Gênero"),
+        widget=forms.TextInput(attrs={'placeholder':_("Digite aqui seu genero")}),
+    )
     class Meta:
         model = Patient
         fields = ("first_name", "last_name", "birthdate", 
-                  "health_insurance", "health_insurance_document")
+                  "health_insurance", "health_insurance_document", "identification")
 
     def clean_phone_numbers(self):
         telefone_number = self.cleaned_data.get("telefone_number")

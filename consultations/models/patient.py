@@ -1,6 +1,7 @@
 import json
 from django.db import models
-from consultations.utils import validate_birthdate
+from consultations.utils import validate_birthdate, validate_cpf
+
 
 
 class Patient(models.Model):
@@ -19,7 +20,7 @@ class Patient(models.Model):
     birthdate = models.DateField(null=True, validators=[validate_birthdate])
     gender = models.CharField(max_length=1)
     id_document = models.ImageField()
-    identification = models.CharField(max_length=200)
+    identification = models.CharField(max_length=200, validators=[validate_cpf])
     telefone_numbers = models.CharField(max_length=500)
     health_insurance = models.CharField(max_length=200, blank=True)
     health_insurance_document = models.ImageField(blank=True)

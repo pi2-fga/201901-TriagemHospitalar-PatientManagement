@@ -16,8 +16,70 @@
             </div>
         </div>
     {% endif %}
+    <div style="width: 100%; overflow: hidden; margin-top: 50px;">
+        <div style="width: 350px; float: left;">
+            <div>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.first_name.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;">{{ form.first_name }} </p> 
+            </div>
 
-    {{ form.as_p }}
+            <div >
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.identification.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.identification }} </p>
+            </div>
+
+            <div >
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.gender.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.gender }} </p>
+            </div>
+            <div>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.email.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.email }} </p>
+            </div>
+            
+            
+            <div >
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.health_insurance_document.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.health_insurance_document }} </p>
+            </div>
+        </div>    
+
+        <div style="margin-left: 320px; ">
+            <div>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.last_name.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; margin-left:0px;">{{ form.last_name }} </p>
+            </div> 
+
+            <div>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.birthdate.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px;"></p>{{ form.birthdate }} </p>
+            </div>
+    
+            <div style="overflow: hidden; ">
+                <div style=" float: left;width: 150px; height: 70px; ">
+                    <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;width: 110px;margin-bottom: 1px;">{{ form.telefone_number.label }} </p>
+                    <p class="font_cadastro" style="font-size: 12px; margin-left:210px; "></p>{{ form.telefone_number }} </p>
+                </div>
+
+                <div style="margin-left: 100px;">
+                    <p class="font_cadastro" style="font-size: 12px;margin-left:8px;margin-bottom: 1px;">{{ form.cellphone_number.label }} </p>
+                    <p class="font_cadastro" style="font-size: 12px; margin-left:260px; "></p>{{ form.cellphone_number }} </p>
+                </div>
+            </div>
+            <div>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.health_insurance.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.health_insurance }} </p>
+            </div>
+            <div >
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.id_document.label }} </p>
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.id_document }} </p>
+            </div>   
+        </div>
+        <div style="margin-left: 800px;">
+            <button>teste</button>
+        </div>
+    </div>
+    
 </form>
 
 {% endblock %}
