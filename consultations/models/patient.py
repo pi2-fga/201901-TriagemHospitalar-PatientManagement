@@ -17,7 +17,7 @@ class Patient(models.Model):
 
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
-    birthdate = models.DateField(null=True, validators=[validate_birthdate])
+    birthdate = models.DateTimeField(null=True, validators=[validate_birthdate])
     gender = models.CharField(max_length=1)
     id_document = models.ImageField()
     identification = models.CharField(max_length=200, validators=[validate_cpf])
