@@ -32,10 +32,10 @@ class Triage(models.Model):
     GREEN = 2
     BLUE = 3
     TRIAGE_RISK_CATEGORIES = [
-        (RED, _('Vermelho')),
-        (YELLOW, _('Amarelo')),
-        (GREEN, _('Verde')),
-        (BLUE, _('Azul')),
+        (RED, _('red')),
+        (YELLOW, _('yellow')),
+        (GREEN, _('green')),
+        (BLUE, _('blue')),
     ]
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
@@ -77,3 +77,9 @@ class Triage(models.Model):
 
     def get_previous_diagnosis(self):
         return json.loads(self.previous_diagnosis)
+
+
+class PatientTriage(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    triage = models.ForeignKey(Triage, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -20,7 +20,7 @@
         <div style="width: 350px; float: left;">
             <div>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.first_name.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;">{{ form.first_name }} </p> 
+                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;">{{ form.first_name }} </p>
             </div>
 
             <div >
@@ -36,25 +36,25 @@
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.email.label }} </p>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.email }} </p>
             </div>
-            
-            
+
+
             <div >
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.health_insurance_document.label }} </p>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.health_insurance_document }} </p>
             </div>
-        </div>    
+        </div>
 
         <div style="margin-left: 0px; float:left;">
             <div>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.last_name.label }} </p>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; margin-left:0px;">{{ form.last_name }} </p>
-            </div> 
+            </div>
 
             <div>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.birthdate.label }} </p>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px;"></p>{{ form.birthdate }} </p>
             </div>
-    
+
             <div style="overflow: hidden;">
                 <div style=" float: left;width: 150px; height: 70px; ">
                     <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;width: 110px;margin-bottom: 1px;">{{ form.telefone_number.label }} </p>
@@ -73,21 +73,17 @@
             <div >
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.id_document.label }} </p>
                 <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.id_document }} </p>
-            </div>   
+            </div>
         </div>
-       
+
         <div style="margin-left: 830px; margin-top: 30px; ">
             <b style="color:gray; font-size:25px;">Dados da Triagem</b>
         </div>
 
         <div style="margin-left: 850px; margin-top: 40px; ">
-            <button class="buttom" style="background-color: #f44336; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">teste</button>
+            <button class="buttom" style="background-color: {{risk_color}}; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Classificação de Risco</button>
         </div>
 
-        <div style="margin-left: 850px; margin-top: 20px; ">
-            <button class="buttom" style="background-color: #e7e7e7;color: black; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">teste</button>
-        </div>
-    
         <div style="margin-left: 1010px; margin-top: 100px; ">
             <button class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Cadastrar</button>
         </div>
