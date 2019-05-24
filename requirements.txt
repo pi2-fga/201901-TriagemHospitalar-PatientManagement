@@ -1,4 +1,5 @@
 Django==2.2
+django-boogie~=0.11.1
 psycopg2
 Pillow
 pycpfcnpj

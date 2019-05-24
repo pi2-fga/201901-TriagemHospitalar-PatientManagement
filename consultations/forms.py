@@ -1,10 +1,12 @@
 from django import forms
 from django.core.validators import validate_email
 from django.utils.translation import ugettext_lazy as _
-from consultations.models import Patient
+from consultations.models import Patient, Consultation
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 
 class PatientRegistrationForm(forms.ModelForm):
     """
@@ -59,9 +61,10 @@ class PatientRegistrationForm(forms.ModelForm):
         label=_("Gênero"),
         widget=forms.TextInput(attrs={'placeholder':_("Digite aqui seu genero")}),
     )
+
     class Meta:
         model = Patient
-        fields = ("first_name", "last_name", "birthdate", 
+        fields = ("first_name", "last_name", "birthdate",
                   "health_insurance", "health_insurance_document", "identification")
 
     def clean_phone_numbers(self):
@@ -85,3 +88,9 @@ class PatientRegistrationForm(forms.ModelForm):
         if commit:
             patient.save()
         return patient
+
+
+class ConsultationForm(forms.ModelForm):
+    class Meta:
+        model = Consultation
+        fields = ("medical_opinion", "is_patient_released")
