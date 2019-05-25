@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {{ form }}
-  {{ patient}}
+ 
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+<div style="width: 100%; overflow: hidden;"></div>
+  <div style="width: 600px; float: left;">
+      <p>Nome completo:  </p>
+      <p class="font_cadastro" >{{ patient.get_full_name}} </p>
+
+      <p>Data de Nascimento:  </p>
+      <p class="font_cadastro" >{{ patient.calculateAge}} </p>
+     
+  </div>
+
+  <div style="margin-left: 620px;">
+    <div> 
+      <p>Opinião Médica:</p>
+      <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p> 
+    </div>
+    <div> 
+      <p> Liberar paciente? </p>
+      {{ form.is_patient_released }} 
+  </div>
+  </div>
+</div>
+   
 {% endblock %}

@@ -1,3 +1,15 @@
 #id_last_name{
     margin-left: 0px;
 }
+
+#id_medical_opinion{
+    width: 400px!important;
+    height: 250px!important;
+}
+ul#id_is_patient_released{
+    list-style: none;
+}
+#id_is_patient_released_0{
+    flex-direction: row;
+    
+}

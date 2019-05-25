@@ -89,8 +89,16 @@ class PatientRegistrationForm(forms.ModelForm):
             patient.save()
         return patient
 
+TRUE_FALSE_CHOICES = (
+    (True, 'Sim'),
+    (False, 'Não')
+)
 
 class ConsultationForm(forms.ModelForm):
     class Meta:
         model = Consultation
         fields = ("medical_opinion", "is_patient_released")
+
+    is_patient_released = forms.ChoiceField(choices = TRUE_FALSE_CHOICES, 
+                                            label="Liberar paciente?", 
+                                            initial='', widget=forms.RadioSelect)

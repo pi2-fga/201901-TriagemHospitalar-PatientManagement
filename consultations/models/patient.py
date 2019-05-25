@@ -1,7 +1,7 @@
 import json
 from django.db import models
 from consultations.utils import validate_birthdate, validate_cpf
-
+from datetime import date 
 
 
 class Patient(models.Model):
@@ -39,6 +39,13 @@ class Patient(models.Model):
             last_name=self.last_name
         )
         return full_name.strip()
+    
+    def calculateAge(self): 
+        today = date.today() 
+        age = (today.year - self.birthdate.year - 
+            ((today.month, today.day) < 
+            (self.birthdate.month, self.birthdate.day)))
+        return age
 
     def get_short_name(self):
         """Return the short name for the user."""
