@@ -80,7 +80,8 @@ class Consultation(models.Model):
     class that represent an emergency consultation with a medic
     """
     medical_opinion = models.CharField(max_length=500)
-    medic = models.ForeignKey(Medic, on_delete=models.PROTECT)
-    patient_triage = models.ForeignKey(PatientTriage, on_delete=models.CASCADE)
+    medic = models.ForeignKey(Medic, on_delete=models.PROTECT, null=True)
+    patient_triage = models.ForeignKey(PatientTriage, on_delete=models.CASCADE,
+                                       null=True)
     is_patient_released = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
