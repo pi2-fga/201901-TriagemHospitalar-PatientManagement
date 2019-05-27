@@ -13,12 +13,13 @@ before_script:
   - apk update
 
 test:
+  image: python:3.6.8-alpine3.9
   stage: test
   before_script:
-    - apk add --quiet --no-cache py-pip
+    - apk add --no-cache --virtual .build-deps gcc python3-dev musl-dev postgresql-dev
+    - pip install toolz
     - pip install -r requirements.txt
-  script:
-    - pytest --cov=./
+  script: pytest
 
 push to github:
   stage: push
