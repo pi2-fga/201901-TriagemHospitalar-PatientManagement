@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
- 
+
 <form method="post">
     {% csrf_token %}
 
@@ -14,28 +14,103 @@
             </div>
         </div>
     {% endif %}
-
+<div style="margin-left:320px; margin-bottom: 40px; margin-top: 20px;">
+    <h2 id="id_titulo" style="text-align:center">Ficha do Paciente</h2>
+    <hr>
+</div>
 
 <div style="width: 100%; overflow: hidden;"></div>
   <div style="width: 600px; float: left;">
-      <p>Nome completo:  </p>
-      <p class="font_cadastro" >{{ patient.get_full_name}} </p>
+    
+    <div style="width: 100%; overflow: hidden;">
+        <div style="width: 150px; float: left;">
+        <h6>Nome completo:  </h6>
+        <p class="font_cadastro" >{{ patient.get_full_name}} </p>
+      </div>
 
-      <p>Data de Nascimento:  </p>
-      <p class="font_cadastro" >{{ patient.calculateAge}} </p>
-     
+      <div style="margin-left: 30px;float: left;">
+        <h6>Data de Nascimento:  </h6>
+        <p class="font_cadastro" >{{ patient.birthdate.date}} </p>
+      </div>
+      
+      <div style="margin-left: 70px;float: left;">
+        <h6>Idade:  </h6>
+        <p class="font_cadastro" >{{ patient.calculateAge}} </p>
+      </div>
+    </div>
+
+    <div style="width: 100%; overflow: hidden;margin-top: 10px;">
+      <div style="width: 150px; float: left;">
+        <h6>Medicações:</h6>
+        <p>{{triage.continuos_medication}}</p>
+      </div>
+      <div style="margin-left: 30px;float: left;">
+        <h6>Alergias:</h6>
+        <p>{{triage.alergies}}</p>
+      </div>
+      <div style="margin-left: 180px;float: left;">
+          <h6>Diagnósticos Prévio: </h6>
+          <p>{{triage.previous_diagnosis}}</p>
+      </div>
+    </div>
+
+    <div style="width: 100%; overflow: hidden;margin-top: 30px;">
+        <div style="width: 170px; float: left;">
+          <h6>Temperatura Corporal:</h6>
+          <p>{{triage.body_temperature}}</p>
+        </div>
+        <div style="margin-left: 5px;float: left;">
+          <h6>Massa:</h6>
+          <p>{{triage.body_mass}}</p>
+        </div>
+        <div style="margin-left: 30px;float: left;">
+            <h6>Altura: </h6>
+            <p>{{triage.height}}</p>
+        </div>
+        <div style="margin-left: 30px;float: left;">
+            <h6>Pressão Sanguínea:</h6>
+            <p>{{triage.blood_pressure}}</p>
+        </div>
+        <div style="margin-left: 30px;float: left;">
+            <h6>Oximetria: </h6>
+            <p>{{triage.blood_oxygen_level}}</p>
+        </div>
+    </div>
+
+    <div style="width: 100%; overflow: hidden;margin-top: 20px;">
+            <div style="width: 150px; float: left;">
+            <h6>Sintomas Principais: </h6>
+            <p>{{triage.main_complaint}}</p>
+        </div>
+        <div style="margin-left: 30px;float: left;">
+            <h6>Classificação de Risco: </h6>
+          <p>{{triage.risk_level}}</p>
+        </div>
+        <div style="margin-left: 90px;float: left;">
+            <h6>Horário da Triagem: </h6>
+            <p>{{triage.created_at}}</p>
+        </div>
+      </div>
+
+      <div style="margin-top:100px;">
+        <button class="buttom" style="background-color: #1D3194;color: #fff;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Visualizar Atendimentos Anteriores</button>
+    </div>    
   </div>
 
-  <div style="margin-left: 620px;">
+  <div style="margin-left: 680px;">
     <div> 
       <p>Opinião Médica:</p>
       <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p> 
     </div>
     <div> 
-      <p> Liberar paciente? </p>
+      <p id="liberar_paciente"> Liberar paciente? </p>
       {{ form.is_patient_released }} 
+    </div>
+    <div style="margin-top:20px; margin-left: 220px;">
+            <button class="buttom" style="background-color: #1D3194;color: #fff;  text-align: center; text-decoration: none; display: inline-block; width:270px; font-size: 16px;">Visualizar Atendimentos Anteriores</button>
+        </div>   
   </div>
-  </div>
+  
 </div>
    
 {% endblock %}
