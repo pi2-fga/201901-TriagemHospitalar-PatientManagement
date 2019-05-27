@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table>
+  <tr>
+    <th>Queixa Principal</th>
+    <th>Data de Atendimento</th>
+    <th>Médico Responsável</th>
+  </tr>
+  {% for consultation in consultations %}
+      <tr>
+        <td>{{ consultation.patient_triage.triage.main_complaint }}</td>
+        <td>{{ consultation.created_at }}</td>
+        <td>{{ consultation.medic.name }}</td>
+      </tr>
+  {% endfor %}
+{% endblock %}

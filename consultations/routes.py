@@ -1,10 +1,11 @@
 import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from boogie.router import Router
 from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
-from consultations.models import Triage
+from consultations.models import Triage, Consultation
 
 app_name = 'consultations'
 urlpatterns = Router(
@@ -53,15 +54,31 @@ def patient_registration(request, triage):
                    'risk_color': risk_color})
 
 
+@urlpatterns.route('consultas/' + patient_triage_url)
+def list_patient_consultations(request, patient_triage):
+    """
+    Renders a page with patient and their triage information, as well as
+    a ConsultationForm for a medic to fill with information.
+    TODO: Add validation to form and medic permission to this page.
+    """
+    consultations = Consultation.objects.filter(patient=patient_triage.patient)
+    return render(request, 'patient_detail.html',
+                  {'consultations': consultations,
+                   'patient_triage': patient_triage})
+
+
+@csrf_exempt
 @urlpatterns.route('triagem/')
 def triage_information(request):
     """
     Process triage information sent from a json and saves it to database
     """
+    print(request.body)
     if request.METHOD == 'POST':
         data = request.body.decode('utf-8')
         received_json_data = json.loads(data)
-        triage = Triage.objects.create(received_json_data)
+        print(received_json_data)
+        triage = Triage.objects.create(received_json_data['triage'])
         triage.save()
         return HttpResponse(triage, status_code=200)
     return None

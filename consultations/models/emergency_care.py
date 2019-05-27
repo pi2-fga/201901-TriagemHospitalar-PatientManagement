@@ -5,16 +5,6 @@ from consultations.models import Patient
 from django.utils.translation import ugettext_lazy as _
 
 
-class Consultation(models.Model):
-    """
-    class that represent an emergency consultation with a medic
-    """
-    medical_opinion = models.CharField(max_length=500)
-    medic = models.ForeignKey(Medic, on_delete=models.PROTECT)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    is_patient_released = models.BooleanField(default=False)
-
-
 class Triage(models.Model):
     """
     Class that represents the triage.
@@ -39,9 +29,9 @@ class Triage(models.Model):
     ]
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
-    blood_glucose = models.IntegerField()
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
+    main_complaint = models.CharField(max_length=500, null=True, blank=True)
     alergies = models.CharField(max_length=500)  # List of values
     continuos_medication = models.CharField(max_length=500)  # List of values
     previous_diagnosis = models.CharField(max_length=500)  # List of values
@@ -83,3 +73,14 @@ class PatientTriage(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     triage = models.ForeignKey(Triage, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Consultation(models.Model):
+    """
+    class that represent an emergency consultation with a medic
+    """
+    medical_opinion = models.CharField(max_length=500)
+    medic = models.ForeignKey(Medic, on_delete=models.PROTECT)
+    patient_triage = models.ForeignKey(PatientTriage, on_delete=models.CASCADE)
+    is_patient_released = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
