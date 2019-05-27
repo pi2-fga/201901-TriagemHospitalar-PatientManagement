@@ -1,4 +1,6 @@
+import json
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from boogie.router import Router
 from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
@@ -54,5 +56,12 @@ def patient_registration(request, triage):
 @urlpatterns.route('triagem/')
 def triage_information(request):
     """
+    Process triage information sent from a json and saves it to database
     """
+    if request.METHOD == 'POST':
+        data = request.body.decode('utf-8')
+        received_json_data = json.loads(data)
+        triage = Triage.objects.create(received_json_data)
+        triage.save()
+        return HttpResponse(triage, status_code=200)
     return None

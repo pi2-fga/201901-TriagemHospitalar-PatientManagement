@@ -15,6 +15,7 @@ before_script:
 test:
   stage: test
   before_script:
+    - apk add --quiet --no-cache py-pip
     - pip install -r requirements.txt
   script:
     - pytest --cov=./
