@@ -21,7 +21,7 @@
 
 <div style="width: 100%; overflow: hidden;"></div>
   <div style="width: 600px; float: left;">
-    
+
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 150px; float: left;">
         <h6>Nome completo:  </h6>
@@ -32,7 +32,7 @@
         <h6>Data de Nascimento:  </h6>
         <p class="font_cadastro" >{{ patient.birthdate.date}} </p>
       </div>
-      
+
       <div style="margin-left: 70px;float: left;">
         <h6>Idade:  </h6>
         <p class="font_cadastro" >{{ patient.calculateAge}} </p>
@@ -94,23 +94,23 @@
 
       <div style="margin-top:100px;">
         <button class="buttom" style="background-color: #1D3194;color: #fff;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Visualizar Atendimentos Anteriores</button>
-    </div>    
+    </div>
   </div>
 
   <div style="margin-left: 680px;">
-    <div> 
+    <div>
       <p>Opinião Médica:</p>
-      <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p> 
+      <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p>
     </div>
-    <div> 
+    <div style="min-width: 250px;"> 
       <p id="liberar_paciente"> Liberar paciente? </p>
-      {{ form.is_patient_released }} 
+      {{ form.is_patient_released }}
     </div>
     <div style="margin-top:20px; margin-left: 220px;">
             <button class="buttom" style="background-color: #1D3194;color: #fff;  text-align: center; text-decoration: none; display: inline-block; width:270px; font-size: 16px;">Visualizar Atendimentos Anteriores</button>
-        </div>   
+        </div>
   </div>
-  
+
 </div>
-   
+
 {% endblock %}
