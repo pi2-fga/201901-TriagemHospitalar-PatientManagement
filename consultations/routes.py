@@ -61,8 +61,9 @@ def list_patient_consultations(request, patient_triage):
     a ConsultationForm for a medic to fill with information.
     TODO: Add validation to form and medic permission to this page.
     """
-    consultations = Consultation.objects.filter(patient=patient_triage.patient)
-    return render(request, 'patient_detail.html',
+    consultations = (Consultation.objects
+                     .filter(patient_triage__patient=patient_triage.patient))
+    return render(request, 'patient_consultations_list.html',
                   {'consultations': consultations,
                    'patient_triage': patient_triage})
 

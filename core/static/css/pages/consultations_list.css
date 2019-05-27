@@ -1,0 +1,16 @@
+table.center {
+  text-align: center;
+  border: 1px solid black;
+}
+
+table.center th, td{
+  padding: 30px;
+}
+
+table.center tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.content{
+  margin: 0 auto;
+}
