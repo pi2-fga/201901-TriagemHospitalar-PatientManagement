@@ -21,6 +21,11 @@ triage_url = f'<model:triage>/'
 
 @urlpatterns.route('consulta/' + patient_triage_url)
 def patient_detail(request, patient_triage):
+    """
+    Renders a page with patient and their triage information, as well as
+    a ConsultationForm for a medic to fill with information.
+    TODO: Add validation to form and medic permission to this page.
+    """
     form = ConsultationForm
     return render(request, 'patient_detail.html',
                   {'form': form, 'patient': patient_triage.patient,
@@ -29,6 +34,9 @@ def patient_detail(request, patient_triage):
 
 @urlpatterns.route('cadastrar/' + triage_url)
 def patient_registration(request, triage):
+    """
+    Renders a page with PatientRegistrationForm
+    """
     form = PatientRegistrationForm()
 
     if request.method == 'POST':
@@ -41,3 +49,10 @@ def patient_registration(request, triage):
     return render(request, 'patient_registration.html',
                   {'form': form,
                    'risk_color': risk_color})
+
+
+@urlpatterns.route('triagem/')
+def triage_information(request):
+    """
+    """
+    return None

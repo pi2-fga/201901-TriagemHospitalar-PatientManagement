@@ -14,7 +14,10 @@ before_script:
 
 test:
   stage: test
-  script: echo "Running tests"
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - pytest --cov=./
 
 push to github:
   stage: push
