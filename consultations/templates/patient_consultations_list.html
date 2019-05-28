@@ -4,13 +4,14 @@
 <div class="content">
       <h2>Consultas anteriores de {{patient_triage.patient.get_full_name}}</h2>
       <hr>
-      <table class="center">
-        <tr>
-          <th>Queixa Principal</th>
-          <th>Data de Atendimento</th>
-          <th>Médico Responsável</th>
-          <th>Parecer Médico</th>
-        </tr>
+      <table class="table table-borderless table-hover ">
+          <tr>
+            <th scope="col">Queixa Principal</th>
+            <th scope="col">Data de Atendimento</th>
+            <th scope="col">Médico Responsável</th>
+            <th scope="col">Parecer Médico</th>
+          </tr>
+         <tbody>
         {% for consultation in consultations %}
             <tr>
               <td>{{ consultation.patient_triage.triage.main_complaint }}</td>
@@ -19,6 +20,7 @@
               <td>{{ consultation.medical_opinion }}</td>
             </tr>
         {% endfor %}
+       </tbody>
       </table>
 </div>
 <a class="btn btn-primary btn-lg" href="/paciente/consulta/{{ patient_triage.pk }}/">Voltar</a>

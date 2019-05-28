@@ -32,7 +32,8 @@ def patient_detail(request, patient_triage):
     form = ConsultationForm
     return render(request, 'patient_detail.html',
                   {'form': form, 'patient': patient_triage.patient,
-                   'triage': patient_triage.triage})
+                   'triage': patient_triage.triage,
+                   'patient_triage': patient_triage})
 
 
 @urlpatterns.route('cadastrar/' + triage_url)
