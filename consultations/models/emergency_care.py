@@ -29,6 +29,8 @@ class Triage(models.Model):
     ]
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
+    name = models.CharField(max_length=200)
+    age = models.IntegerField()
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
     main_complaint = models.CharField(max_length=500, null=True, blank=True)
