@@ -103,18 +103,20 @@ def list_patient_search(request):
                       {'patients': result, 'number': result.count()})
 
 
-@csrf_exempt
-@urlpatterns.route('triagem/')
+@urlpatterns.route('triagem/', csrf=False)
 def triage_information(request):
     """
     Process triage information sent from a json and saves it to database
     """
     print(request.body)
-    if request.METHOD == 'POST':
+    if request.method == 'POST':
         data = request.body.decode('utf-8')
+        print('dataaaaaaaaaaaaaaaaaa')
+        print(data)
         received_json_data = json.loads(data)
-        print(received_json_data)
-        triage = Triage.objects.create(received_json_data['triage'])
+        print(received_json_data['triage'])
+        print('received_json_data')
+        triage = Triage.objects.create(**received_json_data['triage'])
         triage.save()
         return HttpResponse(triage, status_code=200)
     return None
