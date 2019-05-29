@@ -102,3 +102,9 @@ class ConsultationForm(forms.ModelForm):
     is_patient_released = forms.ChoiceField(choices = TRUE_FALSE_CHOICES, 
                                             label="Liberar paciente?", 
                                             initial='', widget=forms.RadioSelect)
+
+    medical_opinion = forms.CharField(
+        label=_("Opinião Medica"),
+        widget=forms.Textarea(attrs={'placeholder':_("Digite")}),
+        validators=[validate_email]
+    )
