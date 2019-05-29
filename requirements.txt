@@ -4,3 +4,4 @@ django-boogie~=0.11.1
 pycpfcnpj
 pytest
 pytest-django
+Pillow
