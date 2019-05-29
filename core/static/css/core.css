@@ -1784,7 +1784,6 @@
     background-color: #fff;
     padding: 3px 5px;
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
-    width: 280px;
   }
   #id_telefone_number{
     width: 135px !important; 
@@ -1792,13 +1791,14 @@
   #id_cellphone_number{
     width: 135px !important;
   }
-  .button {
-    background-color: #f44336
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-  }
+  
+.button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

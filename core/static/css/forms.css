@@ -9,7 +9,6 @@
 ul#id_is_patient_released{
     list-style: none;
 }
-#id_is_patient_released_0{
-    flex-direction: row;
-    
+#liberar_paciente{
+    margin-top: 40px;
 }

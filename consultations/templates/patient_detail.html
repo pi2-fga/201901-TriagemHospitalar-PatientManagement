@@ -18,12 +18,80 @@
 
 <div style="width: 100%; overflow: hidden;"></div>
   <div style="width: 600px; float: left;">
-      <p>Nome completo:  </p>
-      <p class="font_cadastro" >{{ patient.get_full_name}} </p>
+    
+    <div>
+      <div>
+        <p>Nome completo:  </p>
+        <p class="font_cadastro" >{{ patient.get_full_name}} </p>
+      </div>
 
-      <p>Data de Nascimento:  </p>
-      <p class="font_cadastro" >{{ patient.calculateAge}} </p>
-     
+      <div>
+        <p>Data de Nascimento:  </p>
+        <p class="font_cadastro" >{{ patient.birthdate.date}} </p>
+      </div>
+      
+      <div>
+        <p>Idade:  </p>
+        <p class="font_cadastro" >{{ patient.calculateAge}} </p>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <p>Medicações:</p>
+        <p>{{triage.continuos_medication}}</p>
+      </div>
+      <div>
+        <p>Alergias:</p>
+        <p>{{triage.alergies}}</p>
+      </div>
+      <div>
+          <p>Diagnósticos Prévio: </p>
+          <p>{{triage.previous_diagnosis}}</p>
+      </div>
+    </div>
+
+    <div>
+        <div>
+          <p>Temperatura Corporal:</p>
+          <p>{{triage.body_temperature}}</p>
+        </div>
+        <div>
+          <p>Massa:</p>
+          <p>{{triage.body_mass}}</p>
+        </div>
+        <div>
+            <p>Altura: </p>
+            <p>{{triage.height}}</p>
+        </div>
+        <div>
+            <p>Pressão Sanguínea:</p>
+            <p>{{triage.blood_pressure}}</p>
+        </div>
+        <div>
+            <p>Oximetria: </p>
+            <p>{{triage.blood_oxygen_level}}</p>
+        </div>
+      </div>
+
+      <div>
+        <div>
+            <p>{{triage.}}</p>
+        </div>
+        <div>
+          <p>{{triage.created_at}}</p>
+        </div>
+        <div>
+          <p>{{triage.risk_level}}</p>
+        </div>
+        <div>
+          <p>{{triage.main_complaint}}</p>
+        </div>
+      </div>
+
+      <div>
+        <button class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Visualizar Atendimentos Anteriores</button>
+    </div>    
   </div>
 
   <div style="margin-left: 620px;">
@@ -32,9 +100,9 @@
       <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p> 
     </div>
     <div> 
-      <p> Liberar paciente? </p>
+      <p id="liberar_paciente"> Liberar paciente? </p>
       {{ form.is_patient_released }} 
-  </div>
+    </div>
   </div>
 </div>
    
