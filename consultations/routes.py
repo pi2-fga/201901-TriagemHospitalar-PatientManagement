@@ -1,17 +1,19 @@
 import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from boogie.router import Router
 from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
-from consultations.models import Triage, Consultation
+from consultations.models import Triage, Consultation, Patient
 
 app_name = 'consultations'
 urlpatterns = Router(
     models={
         'triage': Triage,
         'patient_triage': models.PatientTriage,
+        'patient': Patient,
     },
     lookup_field={
         'patient_triage': 'pk',
@@ -20,6 +22,7 @@ urlpatterns = Router(
 )
 patient_triage_url = f'<model:patient_triage>/'
 triage_url = f'<model:triage>/'
+patient_url = f'<model:patient>/'
 
 
 @urlpatterns.route('consulta/' + patient_triage_url)
@@ -42,6 +45,7 @@ def patient_registration(request, triage):
     Renders a page with PatientRegistrationForm
     """
     form = PatientRegistrationForm()
+    triage = None
 
     if request.method == 'POST':
         if form.is_valid():
@@ -53,6 +57,26 @@ def patient_registration(request, triage):
     return render(request, 'patient_registration.html',
                   {'form': form,
                    'risk_color': risk_color})
+
+
+@urlpatterns.route('atualizar/' + patient_url)
+def patient_update(request, patient):
+    """
+    Renders a page with PatientRegistrationForm
+    """
+    # TODO: Conseguir pegar um objeto de triagem a partir do usuário logado
+    triage = None
+    form = PatientRegistrationForm(instance=patient)
+    if request.method == 'POST':
+        if form.is_valid():
+            patient = form.save(commit=False)
+            patient.save()
+            models.PatientTriage.objects.create(patient=patient, triage=triage)
+            return redirect('/')
+    # TODO: risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+    return render(request, 'patient_registration.html',
+                  {'form': form,
+                   'risk_color': None})
 
 
 @urlpatterns.route('consultas/' + patient_triage_url)
@@ -67,6 +91,16 @@ def list_patient_consultations(request, patient_triage):
     return render(request, 'patient_consultations_list.html',
                   {'consultations': consultations,
                    'patient_triage': patient_triage})
+
+
+@urlpatterns.route('lista/')
+def list_patient_search(request):
+    search_term = request.GET.get('search')
+    if search_term:
+        result = Patient.objects.filter(Q(first_name__icontains=search_term) |
+                                        Q(last_name__icontains=search_term))
+        return render(request, 'patient_list.html',
+                      {'patients': result, 'number': result.count()})
 
 
 @csrf_exempt
