@@ -4,13 +4,15 @@
     <a class="navbar-brand" href="/">Gerenciamento de Pacientes</a>
 
     <div class="navbar-nav-scroll">
-        <form class="bd-search d-flex align-items-center" style="width: 100%">
-            <span class="algolia-autocomplete" style=" border-radius: 0px !important; position: relative; display: inline-block; direction: ltr;"><input type="search" class="form-control ds-input" style=" width: 735px; border-radius: 0px;" id="search-input" placeholder="Buscar Paciente..." autocomplete="off" data-docs-version="4.3" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="ds-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div class="ds-dataset-1"></div></span></span>
-            <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3 " style="float:right; margin-left:0px !important; float:right; margin-left: 0px !important; z-index: 2; position: relative; margin-left: 13px; border-radius: 0px !important; padding-left:10px; " href="/autenticacao/efetuar-login/"><i class="fas fa-search"></i></a>
+        <form class="bd-search d-flex align-items-center" style="width: 100%" action="/paciente/lista/" method="get" accept-charset="utf-8">
+            <span class="algolia-autocomplete" style=" border-radius: 0px !important; position: relative; display: inline-block; direction: ltr;">
+              <input name="search" type="text" class="form-control ds-input" style=" width: 735px; border-radius: 0px;" id="search-input" placeholder="Buscar Paciente..." autocomplete="off" data-docs-version="4.3" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;">
+              <pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="ds-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div class="ds-dataset-1"></div></span></span>
+            <button type="submit" class="btn btn-primary btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3 " style="float:right; margin-left:0px !important; float:right; margin-left: 0px !important; z-index: 2; position: relative; margin-left: 13px; border-radius: 0px !important; padding-left:10px;"><i class="fas fa-search"></i></button>
         </form>
     </div>
-        
-    
+
+
     <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3 " style="float:right" href="/autenticacao/efetuar-login/">Acessar o sistema</a>
 
 </header>

@@ -1791,14 +1791,26 @@
   #id_cellphone_number{
     width: 135px !important;
   }
-  
-.button {
-  background-color: #f44336;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+
+  .button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+h6{
+  font-size: 12px;  
+}
+
+#id_titulo{
+  color: #1D3194;
+}
+#liberar_paciente{
+  margin-top: 20px;
+  width:200px;
 }

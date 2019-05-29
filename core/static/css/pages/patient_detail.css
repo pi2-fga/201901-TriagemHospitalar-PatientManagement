@@ -1,0 +1,6 @@
+#id_is_patient_released{
+  display: inline-flex;
+}
+ul#id_is_patient_released li{
+  padding-right: 50px;
+}

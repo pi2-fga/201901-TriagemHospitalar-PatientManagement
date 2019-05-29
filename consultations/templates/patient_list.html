@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function($) {
+      $(".table-row").click(function() {
+          window.document.location = $(this).data("href");
+      });
+  });
+</script>
+
+<div class="content">
+      <h2>Pacientes encontrados</h2>
+      <hr>
+      <table class="table table-borderless table-hover">
+          <tr>
+            <th scope="col">Nome completo</th>
+            <th scope="col">Data de Nascimento</th>
+          </tr>
+         <tbody>
+        {% for patient in patients %}
+            <tr class="table-row" data-href="/paciente/atualizar/{{patient.pk}}" style="cursor:pointer;">
+              <td>{{ patient.get_full_name }}</td>
+              <td>{{ patient.birthdate.date }}</td>
+            </tr>
+        {% endfor %}
+       </tbody>
+      </table>
+      <h5>Foram encontrados {{number}} pacientes </h5>
+</div>
+<a class="btn btn-primary btn-lg" href="/">Voltar</a>
+
+{% endblock %}
