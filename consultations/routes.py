@@ -44,19 +44,41 @@ def patient_registration(request, triage):
     """
     Renders a page with PatientRegistrationForm
     """
-    form = PatientRegistrationForm()
-    triage = None
 
     if request.method == 'POST':
+
+        form = PatientRegistrationForm(request.POST or None, request.FILES or None)
+
         if form.is_valid():
-            patient = form.save(commit=False)
-            patient.save()
+            patient = form.save()
             models.PatientTriage.objects.create(patient=patient, triage=triage)
-            return redirect('/')
-    risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
-    return render(request, 'patient_registration.html',
-                  {'form': form,
-                   'risk_color': risk_color})
+            response = redirect('/')
+
+        else:
+            risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+            response = render(
+                request,
+                'patient_registration.html',
+                {
+                    'form': form,
+                    'risk_color': risk_color
+                }
+            )
+
+    if request.method == 'GET':
+
+        form = PatientRegistrationForm()
+        risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        response = render(
+            request,
+            'patient_registration.html',
+            {
+                'form': form,
+                'risk_color': risk_color
+            }
+        )
+
+    return response
 
 
 @urlpatterns.route('atualizar/' + patient_url)
