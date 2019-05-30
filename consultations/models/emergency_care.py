@@ -48,6 +48,24 @@ class Triage(models.Model):
             choices=TRIAGE_RISK_CATEGORIES,
             default=RED,
     )
+    patient = models.ForeignKey(
+        Patient,
+        on_delete=models.CASCADE,
+        related_name='triages',
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name = "Triage"
+        verbose_name_plural = "Triages"
+
+    def __str__(self):
+        if self.patient is not None:
+            response = self.patient.get_full_name() + "'s triage"
+        else:
+            response = "Patient not defined's triage"
+        return response
 
     def set_blood_pressure(self, x):
         self.blood_pressure = json.dumps(x)
@@ -74,19 +92,27 @@ class Triage(models.Model):
         return json.loads(self.previous_diagnosis)
 
 
-class PatientTriage(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    triage = models.ForeignKey(Triage, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
 class Consultation(models.Model):
     """
     class that represent an emergency consultation with a medic
     """
     medical_opinion = models.CharField(max_length=500)
     medic = models.ForeignKey(Medic, on_delete=models.PROTECT, null=True)
-    patient_triage = models.ForeignKey(PatientTriage, on_delete=models.CASCADE,
-                                       null=True)
+    triage = models.ForeignKey(
+        Triage,
+        on_delete=models.CASCADE,
+        null=True
+    )
     is_patient_released = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Consultation"
+        verbose_name_plural = "Consultations"
+
+    def __str__(self):
+        if self.triage is not None:
+            response = self.triage.patient.get_full_name() + "'s consultation"
+        else:
+            response = "Patient not defined's consultation"
+        return response

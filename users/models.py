@@ -9,8 +9,8 @@ class Medic(User):
     crm = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name = "Médico"
-        verbose_name_plural = "Médicos"
+        verbose_name = "Medic"
+        verbose_name_plural = "Medics"
 
     def __str__(self):
         return self.get_full_name()
@@ -25,8 +25,8 @@ class Clerk(User):
     """
 
     class Meta:
-        verbose_name = "Atendente"
-        verbose_name_plural = "Atendentes"
+        verbose_name = "Clerk"
+        verbose_name_plural = "Clerks"
 
     def __str__(self):
         return self.get_full_name()

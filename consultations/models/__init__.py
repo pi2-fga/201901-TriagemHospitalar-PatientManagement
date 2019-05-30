@@ -1,2 +1,2 @@
 from .patient import Patient
-from .emergency_care import Triage, Consultation, PatientTriage
+from .emergency_care import Triage, Consultation

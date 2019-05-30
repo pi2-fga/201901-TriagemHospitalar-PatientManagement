@@ -34,6 +34,10 @@ class Patient(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "Patient"
+        verbose_name_plural = "Patients"
+
     def __str__(self):
         return self.get_full_name()
 
