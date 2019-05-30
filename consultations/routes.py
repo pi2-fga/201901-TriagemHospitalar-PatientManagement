@@ -68,13 +68,32 @@ def patient_registration(request, triage):
     if request.method == 'GET':
 
         form = PatientRegistrationForm()
-        risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+
+        triage_information = dict()
+        triage_information['name'] = triage.name
+        triage_information['age'] = triage.age
+        triage_information['risk'] = dict()
+        triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        if triage.risk_level == 0:
+            triage_information['risk']['text'] = 'VERMELHO'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 1:
+            triage_information['risk']['text'] = 'AMARELO'
+            triage_information['risk']['text_color'] = 'black'
+
+        elif triage.risk_level == 2:
+            triage_information['risk']['text'] = 'VERDE'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 3:
+            triage_information['risk']['text'] = 'AZUL'
+            triage_information['risk']['text_color'] = 'white'
+
         response = render(
             request,
             'patient_registration.html',
             {
                 'form': form,
-                'risk_color': risk_color
+                'triage_information': triage_information
             }
         )
 

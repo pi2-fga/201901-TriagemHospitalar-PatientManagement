@@ -197,9 +197,15 @@
         </div>
 
         <div class="col-3 text-center">
-            <b style="color:gray; font-size:25px;">Dados da Triagem</b>
+            <b style="color: gray; font-size: 25px;">Dados da Triagem</b>
             <br><br><br><br>
-            <button class="buttom" style="background-color: {{risk_color}}; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Classificação de Risco</button>
+            <b>Dados indicados pelo paciente</b>
+            <b>Nome:</b> {{ triage_information.name }}
+            <br>
+            <b>Idade:</b> {{ triage_information.age }}
+            <br><br><br><br>
+            <b>Classificação de risco:</b>
+            <button class="buttom" style="background-color: {{ triage_information.risk.background_color }}; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; color: {{ triage_information.risk.text_color }};"><b>{{ triage_information.risk.text }}</b></button>
         </div>
 
     </div>
@@ -209,6 +215,8 @@
                 <button class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Cadastrar</button>
         </div>
     </div>
+
+    <br>
 
 </form>
 
