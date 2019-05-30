@@ -17,16 +17,19 @@ class Triage(models.Model):
     as a JSON formatted string. Therefore,
     they should not be accessed directly.
     """
+
     RED = 0
     YELLOW = 1
     GREEN = 2
     BLUE = 3
+
     TRIAGE_RISK_CATEGORIES = [
         (RED, _('red')),
         (YELLOW, _('yellow')),
         (GREEN, _('green')),
         (BLUE, _('blue')),
     ]
+
     body_temperature = models.FloatField()
     body_mass = models.FloatField()
     name = models.CharField(max_length=200)

@@ -15,15 +15,22 @@ class Patient(models.Model):
     not be accessed directly.
     """
 
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    birthdate = models.DateTimeField(null=True, validators=[validate_birthdate])
-    gender = models.CharField(max_length=1)
-    id_document = models.ImageField()
-    identification = models.CharField(max_length=200, validators=[validate_cpf])
-    telefone_numbers = models.CharField(max_length=500)
-    health_insurance = models.CharField(max_length=200, blank=True)
-    health_insurance_document = models.ImageField(blank=True)
+    GENDER_CHOICES = (
+        (None, 'Null'),
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outros')
+    )
+
+    first_name = models.CharField(max_length=200, default=None, null=True)
+    last_name = models.CharField(max_length=200, default=None, null=True)
+    birthdate = models.DateTimeField(validators=[validate_birthdate], default=None, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=None, null=True)
+    id_document = models.ImageField(default=None, null=True)
+    identification = models.CharField(max_length=200, validators=[validate_cpf], default=None, null=True)
+    telefone_numbers = models.CharField(max_length=500, default=None, null=True)
+    health_insurance = models.CharField(max_length=200, blank=True, default=None, null=True)
+    health_insurance_document = models.ImageField(blank=True, default=None, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
