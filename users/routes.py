@@ -1,6 +1,6 @@
 import json
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from boogie.router import Router
@@ -43,5 +43,18 @@ def sign_in(request):
                 extra_tags="alert alert-danger"
             )
             response = render(request, 'sign_in.html')
+
+    return response
+
+@urlpatterns.route('encerrar-sessao/')
+def sign_out(request):
+    """
+    [...]
+    """
+
+    if request.method == 'GET':
+        logout(request)
+
+    response = redirect('/')
 
     return response
