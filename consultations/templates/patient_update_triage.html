@@ -24,7 +24,7 @@
 
     <div class="row">
 
-        <div class="col-12">
+        <div class="col-9">
 
             <div class="row">
                 <div class="col-6">
@@ -196,6 +196,18 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="col-3 text-center">
+            <b style="color: gray; font-size: 25px;">Dados da Triagem</b>
+            <br><br><br><br>
+            <b>Dados indicados pelo paciente</b>
+            <b>Nome:</b> {{ triage_information.name }}
+            <br>
+            <b>Idade:</b> {{ triage_information.age }}
+            <br><br><br><br>
+            <b>Classificação de risco:</b>
+            <button class="buttom" style="background-color: {{ triage_information.risk.background_color }}; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; color: {{ triage_information.risk.text_color }};"><b>{{ triage_information.risk.text }}</b></button>
         </div>
 
     </div>

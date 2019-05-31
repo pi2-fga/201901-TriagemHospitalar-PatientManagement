@@ -172,7 +172,7 @@ def patient_registration_change_patient_data(request, triage, patient):
             else:
                 response = render(
                     request,
-                    'patient_update.html',
+                    'patient_update_triage.html',
                     {
                         'form': form,
                         'triage_information': triage_information
@@ -204,7 +204,7 @@ def patient_registration_change_patient_data(request, triage, patient):
 
             response = render(
                 request,
-                'patient_update.html',
+                'patient_update_triage.html',
                 {
                     'form': form,
                     'triage_information': triage_information,
@@ -227,19 +227,57 @@ def patient_update(request, patient):
 
     if hasattr(request.user, 'clerk') or request.user.is_superuser:
 
-        # TODO: Conseguir pegar um objeto de triagem a partir do usuário logado
-        triage = None
-        form = PatientRegistrationForm(instance=patient)
         if request.method == 'POST':
+
+            form = PatientRegistrationForm(request.POST or None, request.FILES or None, instance=patient)
+
             if form.is_valid():
-                patient = form.save(commit=False)
+
+                patient = form.save()
+                patient.email = request.POST['email']
                 patient.save()
-                # models.PatientTriage.objects.create(patient=patient, triage=triage)
-                return redirect('/')
-        # TODO: risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
-        response = render(request, 'patient_registration.html',
-                    {'form': form,
-                    'risk_color': None})
+                response = redirect('/')
+
+            else:
+                response = render(
+                    request,
+                    'patient_update.html',
+                    {
+                        'form': form
+                    }
+                )
+
+        if request.method == 'GET':
+
+            patient_dict = dict()
+            patient_dict['first_name'] = patient.first_name
+            patient_dict['last_name'] = patient.last_name
+            patient_dict['identification'] = patient.identification
+            patient_dict['birthdate'] = patient.birthdate.strftime('%Y-%m-%d')
+            patient_dict['gender'] = patient.gender
+            patient_dict['telefone_number'] = patient.get_telefone_numbers()['fixo']
+            patient_dict['cellphone_number'] = patient.get_telefone_numbers()['celular']
+            patient_dict['email'] = patient.email
+            patient_dict['health_insurance'] = patient.health_insurance
+            patient_dict['id_document'] = patient.id_document
+            patient_dict['health_insurance_document'] = patient.health_insurance_document
+
+            patient_documents = dict()
+            patient_documents['id_document'] = \
+                patient.id_document.name.replace('static/images/', '')
+            patient_documents['health_insurance_document'] = \
+                patient.health_insurance_document.name.replace('static/images/', '')
+
+            form = PatientRegistrationForm(patient_dict)
+
+            response = render(
+                request,
+                'patient_update.html',
+                {
+                    'form': form,
+                    'patient_documents': patient_documents
+                }
+            )
 
     else:
 
