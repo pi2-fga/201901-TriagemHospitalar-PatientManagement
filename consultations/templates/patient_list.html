@@ -23,10 +23,17 @@
             </thead>
             <tbody>
                 {% for patient in patients %}
-                    <tr class="table-row" data-href="/paciente/atualizar/{{ patient.pk }}" style="cursor: pointer;">
-                        <td>{{ patient.get_full_name }}</td>
-                        <td>{{ patient.birthdate.date }}</td>
-                    </tr>
+                    {% if user_type == 'clerk' or user_type == 'admin' %}
+                        <tr class="table-row" data-href="/paciente/atualizar/{{ patient.pk }}" style="cursor: pointer;">
+                            <td>{{ patient.get_full_name }}</td>
+                            <td>{{ patient.birthdate.date }}</td>
+                        </tr>
+                    {% elif user_type == 'medic' %}
+                        <tr class="table-row" data-href="/paciente/consulta/{{ patient.pk }}" style="cursor: pointer;">
+                            <td>{{ patient.get_full_name }}</td>
+                            <td>{{ patient.birthdate.date }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>

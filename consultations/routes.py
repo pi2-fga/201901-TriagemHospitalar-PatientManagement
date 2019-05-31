@@ -291,14 +291,33 @@ def patient_update(request, patient):
 @urlpatterns.route('lista/')
 def list_patient_search(request):
 
-    if hasattr(request.user, 'clerk') or request.user.is_superuser:
+    if request.user.is_authenticated:
 
         search_term = request.GET.get('search')
+
         if search_term:
-            result = Patient.objects.filter(Q(first_name__icontains=search_term) |
-                                            Q(last_name__icontains=search_term))
-            response = render(request, 'patient_list.html',
-                        {'patients': result, 'number': result.count()})
+
+            result = Patient.objects.filter(
+                Q(first_name__icontains=search_term) |
+                Q(last_name__icontains=search_term)
+            )
+
+            if hasattr(request.user, 'clerk'):
+                user_type = 'clerk'
+            elif hasattr(request.user, 'medic'):
+                user_type = 'medic'
+            else:
+                user_type = 'admin'
+
+            response = render(
+                request,
+                'patient_list.html',
+                {
+                    'patients': result,
+                    'number': result.count(),
+                    'user_type': user_type
+                }
+            )
 
     else:
 
