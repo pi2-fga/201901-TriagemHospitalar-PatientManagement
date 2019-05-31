@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Gerenciamento de Pacientes{% endblock %}
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chamar próximo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Confirmar chamada do próximo paciente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a href="/paciente/cadastrar/{{ next_patient }}/" type="button" class="btn btn-primary">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+        <h1>Registro de pacientes</h1>
+    </div>
+    <div class="col-3">
+        <br>
+        <button data-toggle="modal" data-target="#modalExemplo" class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Chamar próximo</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <br>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Idade</th>
+                <th scope="col">Data/horário da triagem</th>
+                <th scope="col">Classificação de risco</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if triage_queue_list %}
+
+                    {% for triage in triage_queue_list %}
+                        <tr style="background-color: {{ triage.risk.background_color }}; color: {{ triage.risk.text_color }};">
+                            <th scope="row">{{ triage.position }}º</th>
+                            <td>{{ triage.name }}</td>
+                            <td>{{ triage.age }}</td>
+                            <td>{{ triage.date_hour }}</td>
+                            <td>{{ triage.risk.text }}</td>
+                        </tr>
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+                        <th scope="row">--</th>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

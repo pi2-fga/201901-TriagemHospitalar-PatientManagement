@@ -17,8 +17,18 @@
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
+                <a href="/"><button type="button" class="close" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button></a>
             </div>
             <div class="modal-body">
+
+                <b>Dados indicados pelo paciente</b>
+                <br>
+                <b>Nome:</b> {{ triage_information.name }}
+                <br>
+                <b>Idade:</b> {{ triage_information.age }}
+                <br><br>
 
                 <p>Caso o paciente já possua cadastro no sistema, selecione o paciente abaixo.</p>
 
@@ -66,6 +76,9 @@
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
+                <a href="/"><button type="button" class="close" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button></a>
             </div>
             <div class="modal-body">
                 <b>Paciente:</b>
@@ -282,6 +295,7 @@
             <b style="color: gray; font-size: 25px;">Dados da Triagem</b>
             <br><br><br><br>
             <b>Dados indicados pelo paciente</b>
+            <br>
             <b>Nome:</b> {{ triage_information.name }}
             <br>
             <b>Idade:</b> {{ triage_information.age }}
