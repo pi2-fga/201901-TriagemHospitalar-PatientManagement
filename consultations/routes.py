@@ -22,94 +22,87 @@ triage_url = f'<model:triage>/'
 patient_url = f'<model:patient>/'
 
 
-@urlpatterns.route('consulta/' + triage_url)
-def patient_detail(request, triage):
-    """
-    Renders a page with patient and their triage information, as well as
-    a ConsultationForm for a medic to fill with information.
-    TODO: Add validation to form and medic permission to this page.
-    """
-    form = ConsultationForm
-    return render(request, 'patient_detail.html',
-                  {'form': form, 'patient': triage.patient,
-                   'triage': triage})
-
-
 @urlpatterns.route('cadastrar/' + triage_url)
 def patient_registration(request, triage):
     """
     Renders a page with PatientRegistrationForm
     """
 
-    triage_information = dict()
-    triage_information['name'] = triage.name
-    triage_information['age'] = triage.age
-    triage_information['risk'] = dict()
-    triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
-    if triage.risk_level == 0:
-        triage_information['risk']['text'] = 'VERMELHO'
-        triage_information['risk']['text_color'] = 'white'
-    elif triage.risk_level == 1:
-        triage_information['risk']['text'] = 'AMARELO'
-        triage_information['risk']['text_color'] = 'black'
+    if hasattr(request.user, 'clerk') or request.user.is_superuser:
 
-    elif triage.risk_level == 2:
-        triage_information['risk']['text'] = 'VERDE'
-        triage_information['risk']['text_color'] = 'white'
-    elif triage.risk_level == 3:
-        triage_information['risk']['text'] = 'AZUL'
-        triage_information['risk']['text_color'] = 'white'
+        triage_information = dict()
+        triage_information['name'] = triage.name
+        triage_information['age'] = triage.age
+        triage_information['risk'] = dict()
+        triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        if triage.risk_level == 0:
+            triage_information['risk']['text'] = 'VERMELHO'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 1:
+            triage_information['risk']['text'] = 'AMARELO'
+            triage_information['risk']['text_color'] = 'black'
 
-    if request.method == 'POST':
+        elif triage.risk_level == 2:
+            triage_information['risk']['text'] = 'VERDE'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 3:
+            triage_information['risk']['text'] = 'AZUL'
+            triage_information['risk']['text_color'] = 'white'
 
-        form = PatientRegistrationForm(request.POST or None, request.FILES or None)
+        if request.method == 'POST':
 
-        if form.is_valid():
-            patient = form.save()
-            triage.patient = patient
-            triage.save()
-            response = redirect('/')
+            form = PatientRegistrationForm(request.POST or None, request.FILES or None)
 
-        else:
+            if form.is_valid():
+                patient = form.save()
+                triage.patient = patient
+                triage.save()
+                response = redirect('/')
+
+            else:
+                response = render(
+                    request,
+                    'patient_registration.html',
+                    {
+                        'form': form,
+                        'triage_information': triage_information
+                    }
+                )
+
+        if request.method == 'GET':
+
+            result = Patient.objects.all()
+
+            patients_dict = dict()
+            patients_dict['patients'] = list()
+
+            for patient in result:
+
+                patient_dict = dict()
+                patient_dict['id'] = patient.id
+                patient_dict['first_name'] = patient.first_name
+                patient_dict['last_name'] = patient.last_name
+                patient_dict['birthdate'] = patient.birthdate.date
+
+                patients_dict['patients'].append(patient_dict)
+
+            patients_dict['count'] = result.count()
+
+            form = PatientRegistrationForm()
+
             response = render(
                 request,
                 'patient_registration.html',
                 {
                     'form': form,
-                    'triage_information': triage_information
+                    'triage_information': triage_information,
+                    'patients_dict': patients_dict
                 }
             )
 
-    if request.method == 'GET':
+    else:
 
-        result = Patient.objects.all()
-
-        patients_dict = dict()
-        patients_dict['patients'] = list()
-
-        for patient in result:
-
-            patient_dict = dict()
-            patient_dict['id'] = patient.id
-            patient_dict['first_name'] = patient.first_name
-            patient_dict['last_name'] = patient.last_name
-            patient_dict['birthdate'] = patient.birthdate.date
-
-            patients_dict['patients'].append(patient_dict)
-
-        patients_dict['count'] = result.count()
-
-        form = PatientRegistrationForm()
-
-        response = render(
-            request,
-            'patient_registration.html',
-            {
-                'form': form,
-                'triage_information': triage_information,
-                'patients_dict': patients_dict
-            }
-        )
+        response = redirect('/')
 
     return response
 
@@ -120,10 +113,16 @@ def patient_registration_keep_patient_data(request, triage, patient):
     [...]
     """
 
-    if request.method == 'GET':
+    if hasattr(request.user, 'clerk') or request.user.is_superuser:
 
-        triage.patient = patient
-        triage.save()
+        if request.method == 'GET':
+
+            triage.patient = patient
+            triage.save()
+
+            response = redirect('/')
+
+    else:
 
         response = redirect('/')
 
@@ -131,85 +130,91 @@ def patient_registration_keep_patient_data(request, triage, patient):
 
 
 @urlpatterns.route('cadastrar/' + triage_url + 'atualizar-existente/' + patient_url)
-def patient_registration_keep_patient_data(request, triage, patient):
+def patient_registration_change_patient_data(request, triage, patient):
     """
     [...]
     """
 
-    triage_information = dict()
-    triage_information['name'] = triage.name
-    triage_information['age'] = triage.age
-    triage_information['risk'] = dict()
-    triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
-    if triage.risk_level == 0:
-        triage_information['risk']['text'] = 'VERMELHO'
-        triage_information['risk']['text_color'] = 'white'
-    elif triage.risk_level == 1:
-        triage_information['risk']['text'] = 'AMARELO'
-        triage_information['risk']['text_color'] = 'black'
+    if hasattr(request.user, 'clerk') or request.user.is_superuser:
 
-    elif triage.risk_level == 2:
-        triage_information['risk']['text'] = 'VERDE'
-        triage_information['risk']['text_color'] = 'white'
-    elif triage.risk_level == 3:
-        triage_information['risk']['text'] = 'AZUL'
-        triage_information['risk']['text_color'] = 'white'
+        triage_information = dict()
+        triage_information['name'] = triage.name
+        triage_information['age'] = triage.age
+        triage_information['risk'] = dict()
+        triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        if triage.risk_level == 0:
+            triage_information['risk']['text'] = 'VERMELHO'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 1:
+            triage_information['risk']['text'] = 'AMARELO'
+            triage_information['risk']['text_color'] = 'black'
 
-    if request.method == 'POST':
+        elif triage.risk_level == 2:
+            triage_information['risk']['text'] = 'VERDE'
+            triage_information['risk']['text_color'] = 'white'
+        elif triage.risk_level == 3:
+            triage_information['risk']['text'] = 'AZUL'
+            triage_information['risk']['text_color'] = 'white'
 
-        form = PatientRegistrationForm(request.POST or None, request.FILES or None, instance=patient)
+        if request.method == 'POST':
 
-        if form.is_valid():
+            form = PatientRegistrationForm(request.POST or None, request.FILES or None, instance=patient)
 
-            patient = form.save()
-            patient.email = request.POST['email']
-            patient.save()
-            triage.patient = patient
-            triage.save()
-            response = redirect('/')
+            if form.is_valid():
 
-        else:
+                patient = form.save()
+                patient.email = request.POST['email']
+                patient.save()
+                triage.patient = patient
+                triage.save()
+                response = redirect('/')
+
+            else:
+                response = render(
+                    request,
+                    'patient_update.html',
+                    {
+                        'form': form,
+                        'triage_information': triage_information
+                    }
+                )
+
+        if request.method == 'GET':
+
+            patient_dict = dict()
+            patient_dict['first_name'] = patient.first_name
+            patient_dict['last_name'] = patient.last_name
+            patient_dict['identification'] = patient.identification
+            patient_dict['birthdate'] = patient.birthdate.strftime('%Y-%m-%d')
+            patient_dict['gender'] = patient.gender
+            patient_dict['telefone_number'] = patient.get_telefone_numbers()['fixo']
+            patient_dict['cellphone_number'] = patient.get_telefone_numbers()['celular']
+            patient_dict['email'] = patient.email
+            patient_dict['health_insurance'] = patient.health_insurance
+            patient_dict['id_document'] = patient.id_document
+            patient_dict['health_insurance_document'] = patient.health_insurance_document
+
+            patient_documents = dict()
+            patient_documents['id_document'] = \
+                patient.id_document.name.replace('static/images/', '')
+            patient_documents['health_insurance_document'] = \
+                patient.health_insurance_document.name.replace('static/images/', '')
+
+            form = PatientRegistrationForm(patient_dict)
+
             response = render(
                 request,
                 'patient_update.html',
                 {
                     'form': form,
-                    'triage_information': triage_information
+                    'triage_information': triage_information,
+                    'patient_documents': patient_documents
                 }
             )
 
-    if request.method == 'GET':
+    else:
 
-        patient_dict = dict()
-        patient_dict['first_name'] = patient.first_name
-        patient_dict['last_name'] = patient.last_name
-        patient_dict['identification'] = patient.identification
-        patient_dict['birthdate'] = patient.birthdate.strftime('%Y-%m-%d')
-        patient_dict['gender'] = patient.gender
-        patient_dict['telefone_number'] = patient.get_telefone_numbers()['fixo']
-        patient_dict['cellphone_number'] = patient.get_telefone_numbers()['celular']
-        patient_dict['email'] = patient.email
-        patient_dict['health_insurance'] = patient.health_insurance
-        patient_dict['id_document'] = patient.id_document
-        patient_dict['health_insurance_document'] = patient.health_insurance_document
-
-        patient_documents = dict()
-        patient_documents['id_document'] = \
-            patient.id_document.name.replace('static/images/', '')
-        patient_documents['health_insurance_document'] = \
-            patient.health_insurance_document.name.replace('static/images/', '')
-
-        form = PatientRegistrationForm(patient_dict)
-
-        response = render(
-            request,
-            'patient_update.html',
-            {
-                'form': form,
-                'triage_information': triage_information,
-                'patient_documents': patient_documents
-            }
-        )
+        response = redirect('/')
 
     return response
 
@@ -219,19 +224,69 @@ def patient_update(request, patient):
     """
     Renders a page with PatientRegistrationForm
     """
-    # TODO: Conseguir pegar um objeto de triagem a partir do usuário logado
-    triage = None
-    form = PatientRegistrationForm(instance=patient)
-    if request.method == 'POST':
-        if form.is_valid():
-            patient = form.save(commit=False)
-            patient.save()
-            # models.PatientTriage.objects.create(patient=patient, triage=triage)
-            return redirect('/')
-    # TODO: risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
-    return render(request, 'patient_registration.html',
-                  {'form': form,
-                   'risk_color': None})
+
+    if hasattr(request.user, 'clerk') or request.user.is_superuser:
+
+        # TODO: Conseguir pegar um objeto de triagem a partir do usuário logado
+        triage = None
+        form = PatientRegistrationForm(instance=patient)
+        if request.method == 'POST':
+            if form.is_valid():
+                patient = form.save(commit=False)
+                patient.save()
+                # models.PatientTriage.objects.create(patient=patient, triage=triage)
+                return redirect('/')
+        # TODO: risk_color = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        response = render(request, 'patient_registration.html',
+                    {'form': form,
+                    'risk_color': None})
+
+    else:
+
+        response = redirect('/')
+
+    return response
+
+
+@urlpatterns.route('lista/')
+def list_patient_search(request):
+
+    if hasattr(request.user, 'clerk') or request.user.is_superuser:
+
+        search_term = request.GET.get('search')
+        if search_term:
+            result = Patient.objects.filter(Q(first_name__icontains=search_term) |
+                                            Q(last_name__icontains=search_term))
+            response = render(request, 'patient_list.html',
+                        {'patients': result, 'number': result.count()})
+
+    else:
+
+        response = redirect('/')
+
+    return response
+
+
+@urlpatterns.route('consulta/' + triage_url)
+def patient_detail(request, triage):
+    """
+    Renders a page with patient and their triage information, as well as
+    a ConsultationForm for a medic to fill with information.
+    TODO: Add validation to form and medic permission to this page.
+    """
+
+    if hasattr(request.user, 'medic') or request.user.is_superuser:
+
+        form = ConsultationForm
+        response = render(request, 'patient_detail.html',
+                    {'form': form, 'patient': triage.patient,
+                    'triage': triage})
+
+    else:
+
+        response = redirect('/')
+
+    return response
 
 
 @urlpatterns.route('consultas/' + triage_url)
@@ -241,20 +296,19 @@ def list_patient_consultations(request, triage):
     a ConsultationForm for a medic to fill with information.
     TODO: Add validation to form and medic permission to this page.
     """
-    consultations = (Consultation.objects
-                     .filter(triage__patient=triage.patient))
-    return render(request, 'patient_consultations_list.html',
-                  {'consultations': consultations})
 
+    if hasattr(request.user, 'medic') or request.user.is_superuser:
 
-@urlpatterns.route('lista/')
-def list_patient_search(request):
-    search_term = request.GET.get('search')
-    if search_term:
-        result = Patient.objects.filter(Q(first_name__icontains=search_term) |
-                                        Q(last_name__icontains=search_term))
-        return render(request, 'patient_list.html',
-                      {'patients': result, 'number': result.count()})
+        consultations = (Consultation.objects
+                        .filter(triage__patient=triage.patient))
+        response = render(request, 'patient_consultations_list.html',
+                    {'consultations': consultations})
+
+    else:
+
+        response = redirect('/')
+
+    return response
 
 
 @urlpatterns.route('triagem/', csrf=False)
