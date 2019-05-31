@@ -1,0 +1,38 @@
+[
+    {  
+        "model":"consultations.patient",
+        "pk":1,
+        "fields":{  
+           "first_name":"João",
+           "last_name":"Cardoso de Almeida",
+           "birthdate":"1990-01-01T00:00:00Z",
+           "gender":"M",
+           "id_document":"static/images/document.jpg",
+           "identification":"13034595077",
+           "telefone_numbers":"{\"fixo\": \"36001234\", \"celular\": \"991001234\"}",
+           "email":"joao@gmail.com",
+           "health_insurance":"123",
+           "health_insurance_document":"static/images/document2.png",
+           "created_at":"2019-01-01T00:00:00.000Z",
+           "updated_at":"2019-01-01T00:00:00.000Z"
+        }
+     },
+     {  
+      "model":"consultations.patient",
+      "pk":2,
+      "fields":{  
+         "first_name":"Fernanda",
+         "last_name":"Borges da Silva",
+         "birthdate":"1990-01-01T00:00:00Z",
+         "gender":"F",
+         "id_document":"static/images/document.jpg",
+         "identification":"13034595077",
+         "telefone_numbers":"{\"fixo\": \"36001234\", \"celular\": \"991001234\"}",
+         "email":"fernanda@gmail.com",
+         "health_insurance":"123",
+         "health_insurance_document":"static/images/document2.png",
+         "created_at":"2019-01-01T00:00:00.000Z",
+         "updated_at":"2019-01-01T00:00:00.000Z"
+      }
+   }
+]

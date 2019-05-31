@@ -1,0 +1,128 @@
+[
+   {  
+      "model":"consultations.triage",
+      "pk":1,
+      "fields": {
+         "body_temperature":38.2,
+         "body_mass":110.75,
+         "name":"João",
+         "age":25,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":90.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.75,
+         "created_at":"2019-01-01T19:00:00.000Z",
+         "updated_at":"2019-01-01T19:00:00.000Z",
+         "ticket_number":123,
+         "risk_level":0
+      }
+   },
+   {  
+      "model":"consultations.triage",
+      "pk":2,
+      "fields": {
+         "body_temperature":36.5,
+         "body_mass":92.3,
+         "name":"Carlos",
+         "age":34,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":91.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.80,
+         "created_at":"2019-01-01T19:00:00.000Z",
+         "updated_at":"2019-01-01T19:00:00.000Z",
+         "ticket_number":123,
+         "risk_level":3
+      }
+   },
+   {  
+      "model":"consultations.triage",
+      "pk":3,
+      "fields": {
+         "body_temperature":36.3,
+         "body_mass":64.84,
+         "name":"Maria",
+         "age":47,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":89.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.62,
+         "created_at":"2019-01-01T18:50:00.000Z",
+         "updated_at":"2019-01-01T18:50:00.000Z",
+         "ticket_number":123,
+         "risk_level":3
+      }
+   },
+   {  
+      "model":"consultations.triage",
+      "pk":4,
+      "fields": {
+         "body_temperature":37.5,
+         "body_mass":85.4,
+         "name":"Paulo",
+         "age":20,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":92.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.78,
+         "created_at":"2019-01-01T19:00:00.000Z",
+         "updated_at":"2019-01-01T19:00:00.000Z",
+         "ticket_number":123,
+         "risk_level":1
+      }
+   },
+   {  
+      "model":"consultations.triage",
+      "pk":5,
+      "fields": {
+         "body_temperature":37.2,
+         "body_mass":56.2,
+         "name":"Fernanda",
+         "age":19,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":89.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.60,
+         "created_at":"2019-01-01T19:10:00.000Z",
+         "updated_at":"2019-01-01T19:10:00.000Z",
+         "ticket_number":123,
+         "risk_level":1
+      }
+   },
+   {  
+      "model":"consultations.triage",
+      "pk":6,
+      "fields": {
+         "body_temperature":36.5,
+         "body_mass":65.7,
+         "name":"Guilherme",
+         "age":29,
+         "blood_pressure":"[\"120\", \"81\"]",
+         "blood_oxygen_level":88.0,
+         "main_complaint":"[\"Dor de cabeca\", \"Enjoo\", \"Vomito\"]",
+         "alergies":"[\"Dipirona\", \"Amoxilina\"]",
+         "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
+         "previous_diagnosis":"[\"Enxaqueca\"]",
+         "height":1.70,
+         "created_at":"2019-01-01T19:00:00.000Z",
+         "updated_at":"2019-01-01T19:00:00.000Z",
+         "ticket_number":123,
+         "risk_level":2
+      }
+   }
+]
