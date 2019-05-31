@@ -55,6 +55,8 @@ def patient_registration(request, triage):
 
             if form.is_valid():
                 patient = form.save()
+                patient.email = request.POST['email']
+                patient.save()
                 triage.patient = patient
                 triage.save()
                 response = redirect('/')

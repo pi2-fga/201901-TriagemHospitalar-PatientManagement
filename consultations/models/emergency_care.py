@@ -115,6 +115,7 @@ class Consultation(models.Model):
     triage = models.ForeignKey(
         Triage,
         on_delete=models.CASCADE,
+        related_name='consultation',
         null=True
     )
     is_patient_released = models.BooleanField(default=False)

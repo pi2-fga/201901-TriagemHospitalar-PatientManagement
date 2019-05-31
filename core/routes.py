@@ -108,14 +108,15 @@ def patient_call(request):
     if hasattr(request.user, 'medic') or request.user.is_superuser:
 
         triage_queue = Triage.objects.filter(
-            ~Q(patient=None)
+            ~Q(patient=None),
+            consultation=None
         ).order_by(
             'risk_level',
             'created_at'
         )
 
         try:
-            next_patient = triage_queue.first().id
+            next_patient = triage_queue.first().patient.id
         except AttributeError:
             next_patient = None
 
