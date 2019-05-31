@@ -315,10 +315,70 @@ def patient_detail(request, triage):
 
     if hasattr(request.user, 'medic') or request.user.is_superuser:
 
-        form = ConsultationForm
-        response = render(request, 'patient_detail.html',
-                    {'form': form, 'patient': triage.patient,
-                    'triage': triage})
+        triage_risk = dict()
+        triage_risk['background_color'] = \
+            Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+
+        if triage.risk_level == 0:
+            triage_risk['text'] = 'VERMELHO'
+            triage_risk['text_color'] = 'white'
+        elif triage.risk_level == 1:
+            triage_risk['text'] = 'AMARELO'
+            triage_risk['text_color'] = 'black'
+
+        elif triage.risk_level == 2:
+            triage_risk['text'] = 'VERDE'
+            triage_risk['text_color'] = 'white'
+        elif triage.risk_level == 3:
+            triage_risk['text'] = 'AZUL'
+            triage_risk['text_color'] = 'white'
+
+        if request.method == 'POST':
+
+            form = ConsultationForm(request.POST or None)
+
+            if form.is_valid():
+                consultation = form.save(commit=False)
+                consultation.medic = request.user.medic
+                consultation.triage = triage
+                consultation.save()
+
+                response = redirect('/')
+
+            else:
+                response = render(
+                    request,
+                    'patient_detail.html',
+                    {
+                        'form': form,
+                        'patient': triage.patient,
+                        'triage': triage,
+                        'triage_risk': triage_risk
+                    }
+                )
+
+        if request.method == 'GET':
+
+            consultation = Consultation.objects.filter(triage=triage)
+
+            if consultation and len(consultation) == 1:
+                consultation = consultation[0]
+            else:
+                consultation = None
+
+            form = ConsultationForm()
+
+            response = render(
+                request,
+                'patient_detail.html',
+                {
+                    'form': form,
+                    'patient': triage.patient,
+                    'triage': triage,
+                    'triage_risk': triage_risk,
+                    'consultation': consultation
+                }
+            )
 
     else:
 

@@ -106,16 +106,19 @@ TRUE_FALSE_CHOICES = (
 )
 
 class ConsultationForm(forms.ModelForm):
+
+    medical_opinion = forms.CharField(
+        label=_("Opinião médica"),
+        help_text=_("Digite aqui a sua opinião sobre o caso do paciente")
+        # widget=forms.Textarea(attrs={'placeholder':_("Digite")})
+    )
+    is_patient_released = forms.ChoiceField(
+        choices = TRUE_FALSE_CHOICES,
+        label="Liberar paciente?",
+        initial='',
+        widget=forms.RadioSelect
+    )
+
     class Meta:
         model = Consultation
         fields = ("medical_opinion", "is_patient_released")
-
-    is_patient_released = forms.ChoiceField(choices = TRUE_FALSE_CHOICES, 
-                                            label="Liberar paciente?", 
-                                            initial='', widget=forms.RadioSelect)
-
-    medical_opinion = forms.CharField(
-        label=_("Opinião Medica"),
-        widget=forms.Textarea(attrs={'placeholder':_("Digite")}),
-        validators=[validate_email]
-    )

@@ -10,12 +10,13 @@ class Triage(models.Model):
     Class that represents the triage.
 
     Since the blood_pressure field is supposed
-    to save a pair of values and the fields alergies,
-    continuos_medication and previous_diagnosis
-    are supposed to save a list of strings,
-    those values ​​will be serialized and stored
-    as a JSON formatted string. Therefore,
-    they should not be accessed directly.
+    to save a pair of values and the fields
+    main_complaint, alergies, continuos_medication
+    and previous_diagnosis are supposed to save
+    a list of strings, those values will be
+    serialized and stored as a JSON formatted
+    string. Therefore, they should not be
+    accessed directly.
     """
 
     RED = 0
@@ -36,7 +37,7 @@ class Triage(models.Model):
     age = models.IntegerField()
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
-    main_complaint = models.CharField(max_length=500, null=True, blank=True)
+    main_complaint = models.CharField(max_length=500, null=True, blank=True)  # List of values
     alergies = models.CharField(max_length=500)  # List of values
     continuos_medication = models.CharField(max_length=500)  # List of values
     previous_diagnosis = models.CharField(max_length=500)  # List of values
@@ -73,6 +74,12 @@ class Triage(models.Model):
     def get_blood_pressure(self):
         return json.loads(self.blood_pressure)
 
+    def set_main_complaint(self, x):
+        self.main_complaint = json.dumps(x)
+
+    def get_main_complaint(self):
+        return json.loads(self.main_complaint)
+
     def set_alergies(self, x):
         self.alergies = json.dumps(x)
 
@@ -91,6 +98,13 @@ class Triage(models.Model):
     def get_previous_diagnosis(self):
         return json.loads(self.previous_diagnosis)
 
+    def get_blood_pressure_formatted(self):
+        blood_pressure = self.get_blood_pressure()
+        blood_pressure_formatted = "{}x{}".format(
+            blood_pressure[0],
+            blood_pressure[1]
+        )
+        return blood_pressure_formatted
 
 class Consultation(models.Model):
     """

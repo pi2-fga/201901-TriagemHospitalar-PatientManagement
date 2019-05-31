@@ -2,135 +2,163 @@
 
 {% block content %}
 
+<h2 id="id_titulo" style="text-align:center">Ficha do Paciente</h2>
+<hr>
+
 <form method="post">
     {% csrf_token %}
 
-    {% if form.non_field_errors %}
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-danger" role="alert">
-                    {{ form.non_field_errors }}
+    <div class="row">
+
+        <div class="col-9">
+
+            <div class="row">
+                <div class="col-3">
+                    <h6>Nome completo:</h6>
+                    <p class="font_cadastro">{{ patient.get_full_name }}</p>
+                </div>
+                <div class="col-3">
+                    <h6>Data de nascimento:</h6>
+                    <p class="font_cadastro">{{ patient.birthdate.date }}</p>
+                </div>
+                <div class="col-3">
+                    <h6>Idade:</h6>
+                    <p>{{ patient.calculateAge }} anos</p>
+                </div>
+                <div class="col-3">
+                    <h6>Gênero:</h6>
+                    {% if patient.gender == 'M' %}
+                        <p class="font_cadastro">Masculino</p>
+                    {% elif patient.gender == 'F' %}
+                        <p class="font_cadastro">Feminino</p>
+                    {% elif patient.gender == 'O' %}
+                        <p class="font_cadastro">Outros</p>
+                    {% endif %}
                 </div>
             </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-3">
+                    <h6>Medicações contínuas:</h6>
+                    <ul>
+                        {% for medication in triage.get_continuos_medication %}
+                            <li>{{ medication }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <h6>Alergias:</h6>
+                    <ul>
+                        {% for allergy in triage.get_alergies %}
+                            <li>{{ allergy }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <h6>Diagnósticos prévios:</h6>
+                    <ul>
+                        {% for diagnosis in triage.get_previous_diagnosis %}
+                            <li>{{ diagnosis }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-3">
+                    <h6>Temperatura:</h6>
+                    <p>{{ triage.body_temperature }} ºC</p>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>Massa:</h6>
+                            <p>{{ triage.body_mass }} kg</p>
+                        </div>
+                        <div class="col-6">
+                            <h6>Altura:</h6>
+                            <p>{{ triage.height }} m</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h6>Pressão sanguínea:</h6>
+                    <p>{{ triage.get_blood_pressure_formatted }} mmHg</p>
+                </div>
+                <div class="col-3">
+                    <h6>Oximetria:</h6>
+                    <p>{{ triage.blood_oxygen_level }}%</p>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-3">
+                    <h6>Sintomas principais:</h6>
+                    <ul>
+                        {% for complaint in triage.get_main_complaint %}
+                            <li>{{ complaint }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <h6>Classificação de risco:</h6>
+                    <button style="background-color: {{ triage_risk.background_color }}; border: none; color: white; padding: 10px 50px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; color: {{ triage_risk.text_color }};"><b>{{ triage_risk.text }}</b></button>
+                </div>
+                <div class="col-6">
+                    <h6>Horário da triagem:</h6>
+                    <p>{{ triage.created_at }}</p>
+                </div>
+            </div>
+
         </div>
-    {% endif %}
-<div style="margin-left:320px; margin-bottom: 40px; margin-top: 20px;">
-    <h2 id="id_titulo" style="text-align:center">Ficha do Paciente</h2>
-    <hr>
-</div>
 
-<div style="width: 100%; overflow: hidden;"></div>
-  <div style="min-width: 600px; float: left;">
-    <div class="table-responsive">
-    <table class="table table-borderless">
-          <tr>
-            <td>
-              <h6>Nome completo:  </h6>
-              <p class="font_cadastro" >{{ patient.get_full_name}} </p>
-            </td>
-            <td>
-              <h6>Data de Nascimento:  </h6>
-              <p class="font_cadastro" >{{ patient.birthdate.date}} </p>
-            </td>
-            <td>
-              <h6>Idade:  </h6>
-              <p class="font_cadastro" >{{ patient.calculateAge}} </p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h6>Medicações:</h6>
-              <p>{{triage.continuos_medication}}</p>
-            </td>
-            <td>
-              <h6>Alergias:</h6>
-              <p>{{triage.alergies}}</p>
-            </td>
-            <td>
-                  <h6>Diagnósticos Prévio: </h6>
-                  <p>{{triage.previous_diagnosis}}</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h6>Temperatura Corporal:</h6>
-              <p>{{triage.body_temperature}}</p>
-            </td>
-            <td>
-              <table>
-                <tr >
-                  <td style="padding-top: 0;  padding-bottom: 0;"><h6>Massa:</h6></td>
-                  <td style="padding-top: 0;  padding-bottom: 0;"><h6>Altura: </h6></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 0;"><p>{{triage.body_mass}} </p></td>
-                  <td style="padding-top: 0;"><p>{{triage.height}}</p></td>
-                </tr>
-              </table>
-            </td>
-            <td>
-              <table>
-                <tr>
-                  <td style="padding-top: 0;  padding-bottom: 0;"><h6>Pressão Sanguínea:</h6></td>
-                  <td style="padding-top: 0; padding-bottom: 0;"><h6>Oximetria: </h6></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 0;"><p>{{triage.blood_pressure}}</p></td>
-                  <td style="padding-top: 0;"><p>{{triage.blood_oxygen_level}}</p></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h6>Sintomas Principais: </h6>
-              <p>{{triage.main_complaint}}</p>
-            </td>
-            <td>
-              <h6>Classificação de Risco: </h6>
-                <p>{{triage.risk_level}}</p>
-            </td>
-            <td>
-              <h6>Horário da Triagem: </h6>
-              <p>{{triage.created_at}}</p>
-            </td>
-          </tr>
-      </table>
-    </div>
+        <div class="col-3">
 
-      <div style="width: 100%; overflow: hidden;margin-top: 20px;">
-              <div style="width: 150px; float: left;">
+            <div class="row">
+                <div class="form-group">
+                    <label for="{{ form.medical_opinion.id_for_label }}">{{ form.medical_opinion.label }}</label>
+                    <textarea required type="textarea" class="form-control" name="{{ form.medical_opinion.html_name }}" id="{{ form.medical_opinion.id_for_label }}" placeholder="{{ form.medical_opinion.help_text }}">{% if form.medical_opinion.value %} value="{{ form.medical_opinion.value }}" {% endif %}</textarea>
+                </div>
+                {% if form.medical_opinion.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.medical_opinion.errors }}
+                    </div>
+                {% endif %}
+            </div>
 
-          </div>
-          <div style="margin-left: 30px;float: left;">
+            <div class="row">
+                <div class="form-group">
+                    <label for="{{ form.is_patient_released.id_for_label }}">{{ form.is_patient_released.label }}</label>
+                    <!-- <input required type="text" class="form-control" name="{{ form.is_patient_released.html_name }}" id="{{ form.is_patient_released.id_for_label }}" placeholder="{{ form.is_patient_released.help_text }}" {% if form.is_patient_released.value %} value="{{ form.is_patient_released.value }}" {% endif %}> -->
+                    <br>
+                    {{ form.is_patient_released }}
+                </div>
+                {% if form.is_patient_released.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.is_patient_released.errors }}
+                    </div>
+                {% endif %}
+            </div>
 
-          </div>
-          <div style="margin-left: 30px; float: left;">
-
-          </div>
         </div>
-      <div style="margin-top:5px;">
-      <a class="btn btn-primary btn-lg" href="/paciente/consultas/{{ triage.pk }}/">Visualizar atendimentos anteriores</a>
+
     </div>
 
-  </div>
-
-  <div style="margin-left: 680px;">
-    <div>
-      <p>Opinião Médica:</p>
-      <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; ">{{ form.medical_opinion }} </p>
-    </div>
-
-    <div style="min-width: 250px;">
-      <p id="liberar_paciente"> Liberar paciente? </p>
-      {{ form.is_patient_released }}
-    </div>
-    <div style="margin-top:72; margin-left: 220px;">
+    <div class="row">
+        <div class="col-10">
+            <a class="btn btn-primary btn-lg" href="/paciente/consultas/{{ triage.pk }}/">Visualizar atendimentos anteriores</a>
+        </div>
+        <div class="col-2">
             <button class="btn btn-primary btn-lg">Atualizar atendimento</button>
         </div>
+    </div>
 
-  </div>
-
-</div>
+</form>
 
 {% endblock %}
