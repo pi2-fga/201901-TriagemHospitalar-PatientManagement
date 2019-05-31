@@ -305,8 +305,8 @@ def list_patient_search(request):
     return response
 
 
-@urlpatterns.route('consulta/' + triage_url)
-def patient_detail(request, triage):
+@urlpatterns.route('consulta/' + patient_url)
+def patient_detail(request, patient):
     """
     Renders a page with patient and their triage information, as well as
     a ConsultationForm for a medic to fill with information.
@@ -314,6 +314,15 @@ def patient_detail(request, triage):
     """
 
     if hasattr(request.user, 'medic') or request.user.is_superuser:
+
+        triage = patient.triages.last()
+
+        consultation = Consultation.objects.filter(triage=triage)
+
+        if consultation and len(consultation) == 1:
+            consultation = consultation[0]
+        else:
+            consultation = None
 
         triage_risk = dict()
         triage_risk['background_color'] = \
@@ -335,7 +344,7 @@ def patient_detail(request, triage):
 
         if request.method == 'POST':
 
-            form = ConsultationForm(request.POST or None)
+            form = ConsultationForm(request.POST or None, instance=consultation)
 
             if form.is_valid():
                 consultation = form.save(commit=False)
@@ -351,7 +360,7 @@ def patient_detail(request, triage):
                     'patient_detail.html',
                     {
                         'form': form,
-                        'patient': triage.patient,
+                        'patient': patient,
                         'triage': triage,
                         'triage_risk': triage_risk
                     }
@@ -359,24 +368,16 @@ def patient_detail(request, triage):
 
         if request.method == 'GET':
 
-            consultation = Consultation.objects.filter(triage=triage)
-
-            if consultation and len(consultation) == 1:
-                consultation = consultation[0]
-            else:
-                consultation = None
-
-            form = ConsultationForm()
+            form = ConsultationForm(instance=consultation)
 
             response = render(
                 request,
                 'patient_detail.html',
                 {
                     'form': form,
-                    'patient': triage.patient,
+                    'patient': patient,
                     'triage': triage,
-                    'triage_risk': triage_risk,
-                    'consultation': consultation
+                    'triage_risk': triage_risk
                 }
             )
 
@@ -387,8 +388,8 @@ def patient_detail(request, triage):
     return response
 
 
-@urlpatterns.route('consultas/' + triage_url)
-def list_patient_consultations(request, triage):
+@urlpatterns.route('consultas/' + patient_url)
+def list_patient_consultations(request, patient):
     """
     Renders a page with patient and their triage information, as well as
     a ConsultationForm for a medic to fill with information.
@@ -397,10 +398,18 @@ def list_patient_consultations(request, triage):
 
     if hasattr(request.user, 'medic') or request.user.is_superuser:
 
-        consultations = (Consultation.objects
-                        .filter(triage__patient=triage.patient))
-        response = render(request, 'patient_consultations_list.html',
-                    {'consultations': consultations})
+        consultations = Consultation.objects.filter(
+            triage__patient=patient
+        )
+
+        response = render(
+            request,
+            'patient_consultations_list.html',
+            {
+                'consultations': consultations,
+                'patient': patient
+            }
+        )
 
     else:
 

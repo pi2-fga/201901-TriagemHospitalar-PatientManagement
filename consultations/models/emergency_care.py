@@ -118,7 +118,8 @@ class Consultation(models.Model):
         null=True
     )
     is_patient_released = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Consultation"

@@ -123,7 +123,7 @@
             <div class="row">
                 <div class="form-group">
                     <label for="{{ form.medical_opinion.id_for_label }}">{{ form.medical_opinion.label }}</label>
-                    <textarea required type="textarea" class="form-control" name="{{ form.medical_opinion.html_name }}" id="{{ form.medical_opinion.id_for_label }}" placeholder="{{ form.medical_opinion.help_text }}">{% if form.medical_opinion.value %} value="{{ form.medical_opinion.value }}" {% endif %}</textarea>
+                    <textarea required type="textarea" class="form-control" name="{{ form.medical_opinion.html_name }}" id="{{ form.medical_opinion.id_for_label }}" placeholder="{{ form.medical_opinion.help_text }}">{% if form.medical_opinion.value %}{{ form.medical_opinion.value }}{% endif %}</textarea>
                 </div>
                 {% if form.medical_opinion.errors %}
                     <div class="alert alert-danger" role="alert">
@@ -152,7 +152,7 @@
 
     <div class="row">
         <div class="col-10">
-            <a class="btn btn-primary btn-lg" href="/paciente/consultas/{{ triage.pk }}/">Visualizar atendimentos anteriores</a>
+            <a class="btn btn-primary btn-lg" href="/paciente/consultas/{{ patient.pk }}/">Visualizar atendimentos anteriores</a>
         </div>
         <div class="col-2">
             <button class="btn btn-primary btn-lg">Atualizar atendimento</button>

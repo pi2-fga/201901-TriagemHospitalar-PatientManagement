@@ -1,27 +1,61 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="content">
-      <h2>Consultas anteriores de {{triage.patient.get_full_name}}</h2>
-      <hr>
-      <table class="table table-borderless table-hover ">
-          <tr>
-            <th scope="col">Queixa Principal</th>
-            <th scope="col">Data de Atendimento</th>
-            <th scope="col">Médico Responsável</th>
-            <th scope="col">Parecer Médico</th>
-          </tr>
-         <tbody>
-        {% for consultation in consultations %}
-            <tr>
-              <td>{{ consultation.triage.triage.main_complaint }}</td>
-              <td>{{ consultation.created_at }}</td>
-              <td>{{ consultation.medic.name }}</td>
-              <td>{{ consultation.medical_opinion }}</td>
-            </tr>
-        {% endfor %}
-       </tbody>
-      </table>
+
+<h2>Consultas anteriores de {{ patient.get_full_name }}</h2>
+
+<div class="row">
+
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Queixa principal</th>
+                    <th scope="col">Data de atendimento</th>
+                    <th scope="col">Médico responsável</th>
+                    <th scope="col">Parecer médico</th>
+                    <th scope="col">Atendimento concluído</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if consultations %}
+
+                    {% for consultation in consultations %}
+                        <tr>
+                            <td>
+                                <ul>
+                                    {% for complaint in consultation.triage.get_main_complaint %}
+                                        <li>{{ complaint }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>{{ consultation.created_at }}</td>
+                            <td>{{ consultation.medic.get_full_name }}</td>
+                            <td>{{ consultation.medical_opinion }}</td>
+                            {% if consultation.is_patient_released %}
+                                <td>Sim</td>
+                            {% else %}
+                                <td>Não</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+                        <th>--</th>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
 </div>
-<a class="btn btn-primary btn-lg" href="/paciente/consulta/{{ triage.pk }}/">Voltar</a>
+
+<a class="btn btn-primary btn-lg" href="/paciente/consulta/{{ patient.pk }}/">Voltar para ficha do paciente</a>
+
 {% endblock %}
