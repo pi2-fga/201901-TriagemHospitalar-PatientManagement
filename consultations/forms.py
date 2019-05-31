@@ -40,11 +40,10 @@ class PatientRegistrationForm(forms.ModelForm):
         help_text=_("Digite aqui o número de contato do paciente")
         # widget=forms.TextInput(attrs={'placeholder':_("Digite aqui o número de contato do paciente")})
     )
-    email = forms.CharField(
+    email = forms.EmailField(
         label=_("E-mail"),
-        help_text=_("Digite aqui o e-mail do paciente"),
+        help_text=_("Digite aqui o e-mail do paciente")
         # widget=forms.EmailInput(attrs={'placeholder':_("Digite aqui o seu e-mail")}),
-        validators=[validate_email]
     )
     health_insurance = forms.CharField(
         label=_("Plano de Saúde"),
@@ -53,12 +52,14 @@ class PatientRegistrationForm(forms.ModelForm):
     )
     health_insurance_document = forms.ImageField(
         label=_("Documento do Plano de Saúde"),
-        help_text=_("Cópia do plano de saúde, caso seja apresentado")
+        help_text=_("Cópia do plano de saúde, caso seja apresentado"),
+        required=False
         # widget=forms.FileInput(attrs={'placeholder':_("Cópia do plano de saúde, caso seja apresentado")}),
     )
     id_document = forms.ImageField(
         label=_("Documento do identificação"),
-        help_text=_("Neste campo você deve enviar: identidade, CNH, ou algum documento ofical com foto que possa identificá-lo.")
+        help_text=_("Neste campo você deve enviar: identidade, CNH, ou algum documento ofical com foto que possa identificá-lo."),
+        required=False
         # widget=forms.FileInput(attrs={'placeholder':_("Neste campo você deve enviar: identidade, CNH, ou algum documento ofical com foto que possa identificá-lo. ")}),
     )
     identification = forms.CharField(

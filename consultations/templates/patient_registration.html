@@ -4,6 +4,88 @@
 
 <h1>Cadastrar paciente</h1>
 
+{% load static %}
+
+<script src="{% static 'js/patient_registration.js' %}"></script>
+
+<!-- Modal modalPacientePossuiCadastro -->
+<div class="modal fade" id="modalPacientePossuiCadastro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">O paciente já possui cadastro no sistema?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+
+                <p>Caso o paciente já possua cadastro no sistema, selecione o paciente abaixo.</p>
+
+                <div class="form-group">
+                    <label for="search_term" class="col-form-label">Filtrar pacientes por nome:</label>
+                    <input type="text" class="form-control" id="search_term">
+                </div>
+
+                <p><b>Pacientes cadastrados sendo exibidos:</b> {{ patients_dict.count }}</p>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Sobrenome</th>
+                        <th scope="col">Data de nascimento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablePacientePossuiCadastro">
+                        {% for patient in patients_dict.patients %}
+                            <tr class="next-modal" data-patient-id="{{ patient.id }}" data-patient-first_name="{{ patient.first_name }}" data-patient-last_name="{{ patient.last_name }}" data-patient-birthdate="{{ patient.birthdate }}" style="cursor: pointer;">
+                                <th scode="row">{{ patient.id }}</th>
+                                <td>{{ patient.first_name }}</td>
+                                <td>{{ patient.last_name }}</td>
+                                <td>{{ patient.birthdate }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">O paciente não possui cadastro.</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal modalAtualizarDadosPaciente -->
+<div class="modal fade" id="modalAtualizarDadosPaciente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deseja atualizar os dados do paciente?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <b>Paciente:</b>
+                <br><br>
+                <b>Nome:</b> <span id="patient-first_name"></span>
+                <br>
+                <b>Sobrenome:</b> <span id="patient-last_name"></span>
+                <br>
+                <b>Data de aniversário:</b> <span id="patient-birthdate"></span>
+                <br><br>
+                <p>Clique em um dos botões abaixo para prosseguir.</p>
+            </div>
+            <div class="modal-footer">
+                <a id="keep-patient-button" href="" type="button" class="btn btn-primary">Manter dados atuais</button>
+                <a id="update-patient-button" href="" type="button" class="btn btn-primary">Atualizar dados do paciente</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 

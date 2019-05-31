@@ -1,96 +1,225 @@
 {% extends 'base.html' %}
-{% block title %}Gerenciamento de Pacientes - Cadastrar paciente{% endblock %}
+{% block title %}Gerenciamento de Pacientes - Atualizar paciente{% endblock %}
 {% block content %}
 
-<h1>Cadastrar paciente</h1>
+<h1>Atualizar paciente</h1>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {% if form.non_field_errors %}
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-danger" role="alert">
-                    {{ form.non_field_errors }}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ field.label }}: {{ error|escape }}</strong>
                 </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
             </div>
-        </div>
+        {% endfor %}
     {% endif %}
-    <div style="width: 156%; overflow: hidden; margin-top: 50px;">
-        <div style="width: 350px; float: left;">
-            <div>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.first_name.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;">{{ form.first_name }} </p> 
-            </div>
 
-            <div >
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.identification.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.identification }} </p>
-            </div>
+    <div class="row">
 
-            <div >
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.gender.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.gender }} </p>
-            </div>
-            <div>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.email.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.email }} </p>
-            </div>
-            
-            
-            <div >
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.health_insurance_document.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.health_insurance_document }} </p>
-            </div>
-        </div>    
+        <div class="col-9">
 
-        <div style="margin-left: 0px; float:left;">
-            <div>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.last_name.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px; margin-left:0px;">{{ form.last_name }} </p>
-            </div> 
-
-            <div>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.birthdate.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px;"></p>{{ form.birthdate }} </p>
-            </div>
-    
-            <div style="overflow: hidden;">
-                <div style=" float: left;width: 150px; height: 70px; ">
-                    <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;width: 110px;margin-bottom: 1px;">{{ form.telefone_number.label }} </p>
-                    <p class="font_cadastro" style="font-size: 12px; margin-left:210px; "></p>{{ form.telefone_number }} </p>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" placeholder="{{ form.first_name.help_text }}" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %}>
+                    </div>
+                    {% if form.first_name.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.first_name.errors }}
+                        </div>
+                    {% endif %}
                 </div>
 
-                <div style="margin-left: 100px;">
-                    <p class="font_cadastro" style="font-size: 12px;margin-left:8px;margin-bottom: 1px;">{{ form.cellphone_number.label }} </p>
-                    <p class="font_cadastro" style="font-size: 12px; margin-left:260px; "></p>{{ form.cellphone_number }} </p>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" placeholder="{{ form.last_name.help_text }}" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %}>
+                    </div>
+                    {% if form.last_name.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.last_name.errors }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            <div>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.health_insurance.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.health_insurance }} </p>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.identification.id_for_label }}">{{ form.identification.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.identification.html_name }}" id="{{ form.identification.id_for_label }}" placeholder="{{ form.identification.help_text }}" {% if form.identification.value %} value="{{ form.identification.value }}" {% endif %}>
+                    </div>
+                    {% if form.identification.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.identification.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.birthdate.id_for_label }}">{{ form.birthdate.label }}</label>
+                        <input required type="date" class="form-control" name="{{ form.birthdate.html_name }}" id="{{ form.birthdate.id_for_label }}" placeholder="{{ form.birthdate.help_text }}" {% if form.birthdate.value %} value="{{ form.birthdate.value }}" {% endif %}>
+                    </div>
+                    {% if form.birthdate.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.birthdate.errors }}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <div >
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:8px;">{{ form.id_document.label }} </p>
-                <p class="font_cadastro" style="font-size: 12px; margin-bottom: 0px;margin-left:210px; "></p>{{ form.id_document }} </p>
-            </div>   
-        </div>
-       
-        <div style="margin-left: 830px; margin-top: 30px; ">
-            <b style="color:gray; font-size:25px;">Dados da Triagem</b>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                        <select required class="form-control browser-default custom-select" class="form-control" name="{{ form.gender.html_name }}" id="{{ form.gender.id_for_label }}">
+                            {% if form.gender.value %}
+                                {% if form.gender.value == 'M' %}
+                                    <option value="">{{ form.gender.help_text }}</option>
+                                    <option value="M" selected>Masculino</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="O">Outros</option>
+                                {% elif form.gender.value == 'F' %}
+                                    <option value="">{{ form.gender.help_text }}</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F" selected>Feminino</option>
+                                    <option value="O">Outros</option>
+                                {% elif form.gender.value == 'O' %}
+                                    <option value="">{{ form.gender.help_text }}</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="O" selected>Outros</option>
+                                {% endif %}
+                            {% else %}
+                                <option value="" selected>{{ form.gender.help_text }}</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="O">Outros</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    {% if form.gender.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.gender.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.telefone_number.id_for_label }}">{{ form.telefone_number.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.telefone_number.html_name }}" id="{{ form.telefone_number.id_for_label }}" placeholder="{{ form.telefone_number.help_text }}" {% if form.telefone_number.value %} value="{{ form.telefone_number.value }}" {% endif %}>
+                    </div>
+                    {% if form.telefone_number.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.telefone_number.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-6 col-6">
+                    <div class="form-group">
+                        <label for="{{ form.cellphone_number.id_for_label }}">{{ form.cellphone_number.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.cellphone_number.html_name }}" id="{{ form.cellphone_number.id_for_label }}" placeholder="{{ form.cellphone_number.help_text }}" {% if form.cellphone_number.value %} value="{{ form.cellphone_number.value }}" {% endif %}>
+                    </div>
+                    {% if form.cellphone_number.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.cellphone_number.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" placeholder="{{ form.email.help_text }}" {% if form.email.value %} value="{{ form.email.value }}" {% endif %}>
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.health_insurance.id_for_label }}">{{ form.health_insurance.label }}</label>
+                        <input required type="text" class="form-control" name="{{ form.health_insurance.html_name }}" id="{{ form.health_insurance.id_for_label }}" placeholder="{{ form.health_insurance.help_text }}" {% if form.health_insurance.value %} value="{{ form.health_insurance.value }}" {% endif %}>
+                    </div>
+                    {% if form.health_insurance.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.health_insurance.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.id_document.id_for_label }}">{{ form.id_document.label }}</label>
+                        <br><small>Atualmente: {{ patient_documents.id_document }}</small>
+                        <input type="file" class="form-control" name="{{ form.id_document.html_name }}" id="{{ form.id_document.id_for_label }}" placeholder="{{ form.id_document.help_text }}" {% if form.id_document.value %} value="{{ form.id_document.value }}" {% endif %}>
+                    </div>
+                    {% if form.id_document.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.id_document.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="{{ form.health_insurance_document.id_for_label }}">{{ form.health_insurance_document.label }}</label>
+                        <br><small>Atualmente: {{ patient_documents.health_insurance_document }}</small>
+                        <input type="file" class="form-control" name="{{ form.health_insurance_document.html_name }}" id="{{ form.health_insurance_document.id_for_label }}" placeholder="{{ form.health_insurance_document.help_text }}" {% if form.health_insurance_document.value %} value="{{ form.health_insurance_document.value }}" {% endif %}>
+                    </div>
+                    {% if form.health_insurance_document.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.health_insurance_document.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
 
-        <div style="margin-left: 850px; margin-top: 40px; ">
-            <button class="buttom" style="background-color: #f44336; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">teste</button>
+        <div class="col-3 text-center">
+            <b style="color: gray; font-size: 25px;">Dados da Triagem</b>
+            <br><br><br><br>
+            <b>Dados indicados pelo paciente</b>
+            <b>Nome:</b> {{ triage_information.name }}
+            <br>
+            <b>Idade:</b> {{ triage_information.age }}
+            <br><br><br><br>
+            <b>Classificação de risco:</b>
+            <button class="buttom" style="background-color: {{ triage_information.risk.background_color }}; border: none;color: white; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; color: {{ triage_information.risk.text_color }};"><b>{{ triage_information.risk.text }}</b></button>
         </div>
 
-        <div style="margin-left: 850px; margin-top: 20px; ">
-            <button class="buttom" style="background-color: #e7e7e7;color: black; padding: 15px 70px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">teste</button>
+    </div>
+
+    <div class="row">
+        <div class="offset-10 col-2">
+                <button class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Atualizar</button>
         </div>
-    
-        <div style="margin-left: 1010px; margin-top: 100px; ">
-            <button class="buttom" style="background-color: #1D3194;color: #fff; padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Atualizar</button>
-        </div>
+    </div>
+
+    <br>
+
 </form>
 
 {% endblock %}
