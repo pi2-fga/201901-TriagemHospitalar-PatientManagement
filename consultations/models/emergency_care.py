@@ -32,16 +32,17 @@ class Triage(models.Model):
     ]
 
     body_temperature = models.FloatField()
-    body_mass = models.FloatField()
+    body_mass = models.FloatField(null=True, blank=True)
     name = models.CharField(max_length=200)
     age = models.IntegerField()
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
+    blood_glucose = models.IntegerField()
     main_complaint = models.CharField(max_length=500, null=True, blank=True)  # List of values
     alergies = models.CharField(max_length=500)  # List of values
     continuos_medication = models.CharField(max_length=500)  # List of values
     previous_diagnosis = models.CharField(max_length=500)  # List of values
-    height = models.FloatField()
+    height = models.FloatField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     ticket_number = models.IntegerField()
