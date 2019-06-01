@@ -37,7 +37,6 @@ class Triage(models.Model):
     age = models.IntegerField()
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField()
-    blood_glucose = models.IntegerField()
     main_complaint = models.CharField(max_length=500, null=True, blank=True)  # List of values
     alergies = models.CharField(max_length=500)  # List of values
     continuos_medication = models.CharField(max_length=500)  # List of values
