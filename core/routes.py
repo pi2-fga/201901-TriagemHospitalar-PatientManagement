@@ -1,7 +1,8 @@
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from boogie.router import Router
-from consultations.models.emergency_care import Triage
+from consultations.models.emergency_care import Triage, Call
 
 
 urlpatterns = Router()
@@ -163,3 +164,64 @@ def patient_call(request):
         response = redirect('/')
 
     return response
+
+
+@urlpatterns.route('chamadas/')
+def patient_calls(request):
+    """
+    [...]
+    """
+
+    response = render(
+        request,
+        'calls.html'
+    )
+
+    return response
+
+
+@urlpatterns.route('chamadas/checar-mudancas/')
+def patient_calls_checker(request):
+    """
+    [...]
+    """
+
+    calls = Call.objects.filter().order_by(
+        '-created_at'
+    )[:5]
+
+    response = dict()
+    response['calls'] = list()
+
+    for call in calls:
+
+        call_dict = dict()
+
+        if call.medic is not None:
+            call_dict['caller'] = call.medic.get_full_name()
+            call_dict['patient'] = call.patient.get_full_name()
+            call_dict['type'] = 'CONSULTA'
+        elif call.clerk is not None:
+            call_dict['caller'] = call.clerk.get_full_name()
+            call_dict['patient'] = call.patient_name
+            call_dict['type'] = 'CADASTRAMENTO'
+
+        call_dict['location'] = call.location
+        call_dict['time'] = call.created_at
+
+        response['calls'].append(call_dict)
+
+    if calls.count() < 5:
+
+        for i in range(5-calls.count()):
+
+            call_dict = dict()
+            call_dict['caller'] = None
+            call_dict['patient'] = None
+            call_dict['type'] = None
+            call_dict['location'] = None
+            call_dict['time'] = None
+
+            response['calls'].append(call_dict)
+
+    return JsonResponse(response)

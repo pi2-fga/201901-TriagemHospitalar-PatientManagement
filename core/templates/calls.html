@@ -1,0 +1,88 @@
+{% extends 'base_calls.html' %}
+{% block title %}Gerenciamento de Pacientes{% endblock %}
+{% block content %}
+
+{% load static %}
+
+<script src="{% static 'js/calls.js' %}"></script>
+<audio id="audio" preload="none" src="{% static 'sounds/notification.mp3' %}"></audio>
+
+<br>
+
+<div class="row">
+    <div class="offset-1 col-10 calls-cards shadow">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="calls-text1">Paciente</h3>
+                <h1 id="patient-name-last" class="calls-text4"></h1>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h3 class="calls-text1">Tipo de atendimento</h3>
+                <h1 id="patient-type-last" class="calls-text2"></h1>
+            </div>
+            <div class="col-6">
+                <h3 id="patient-location-type-last" class="calls-text1">Guichê</h3>
+                <h1 id="patient-location-last" class="calls-text2"></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="offset-1 col-10 calls-cards shadow">
+        <br>
+        <table class="table calls-text1">
+            <thead>
+                <tr>
+                <th scope="col">PACIENTE</th>
+                <th scope="col">TIPO DE ATENDIMENTO</th>
+                <th scope="col">GUICHÊ/SALA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="patient-name-1"></td>
+                    <td id="patient-type-1"></td>
+                    <td id="patient-location-1"></td>
+                </tr>
+                <tr>
+                    <td id="patient-name-2"></td>
+                    <td id="patient-type-2"></td>
+                    <td id="patient-location-2"></td>
+                </tr>
+                <tr>
+                    <td id="patient-name-3"></td>
+                    <td id="patient-type-3"></td>
+                    <td id="patient-location-3"></td>
+                </tr>
+                <tr>
+                    <td id="patient-name-4"></td>
+                    <td id="patient-type-4"></td>
+                    <td id="patient-location-4"></td>
+                </tr>
+                <tr>
+                    <td id="patient-name-5"></td>
+                    <td id="patient-type-5"></td>
+                    <td id="patient-location-5"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="offset-4 col-4 calls-cards shadow">
+        <div class="calls-text3" id="clock"></div>
+    </div>
+</div>
+
+<br>
+
+{% endblock %}

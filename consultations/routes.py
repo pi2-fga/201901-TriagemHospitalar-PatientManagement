@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from boogie.router import Router
 from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
-from consultations.models import Triage, Consultation, Patient
+from consultations.models import Triage, Consultation, Patient, Call
+
 
 app_name = 'consultations'
 urlpatterns = Router(
@@ -72,6 +73,14 @@ def patient_registration(request, triage):
                 )
 
         if request.method == 'GET':
+
+            if triage.patient is None:
+
+                Call.objects.create(
+                    clerk=request.user.clerk,
+                    patient_name=triage.name,
+                    location=request.user.clerk.window
+                )
 
             result = Patient.objects.all()
 
@@ -388,6 +397,14 @@ def patient_detail(request, patient):
                 )
 
         if request.method == 'GET':
+
+            if consultation is None:
+
+                Call.objects.create(
+                    medic=request.user.medic,
+                    patient=patient,
+                    location=request.user.medic.room
+                )
 
             form = ConsultationForm(instance=consultation)
 

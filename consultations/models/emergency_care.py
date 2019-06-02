@@ -1,6 +1,6 @@
 import json
 from django.db import models
-from users.models import Medic
+from users.models import Medic, Clerk
 from consultations.models import Patient
 from django.utils.translation import ugettext_lazy as _
 
@@ -131,4 +131,59 @@ class Consultation(models.Model):
             response = self.triage.patient.get_full_name() + "'s consultation"
         else:
             response = "Patient not defined's consultation"
+        return response
+
+class Call(models.Model):
+    """
+    Class that represent the patient calls
+    """
+    medic = models.ForeignKey(  # To use in consultation type service
+        Medic,
+        on_delete=models.DO_NOTHING,
+        related_name='calls',
+        null=True
+    )
+    clerk = models.ForeignKey(  # To use in regitration type service
+        Clerk,
+        on_delete=models.DO_NOTHING,
+        related_name='calls',
+        null=True
+    )
+    patient = models.ForeignKey(  # To use in consultation type service
+        Patient,
+        on_delete=models.DO_NOTHING,
+        related_name='calls',
+        null=True
+    )
+    patient_name = models.CharField(  # To use in regitration type service
+        max_length=200,
+        null=True
+    )
+    location = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Call"
+        verbose_name_plural = "Calls"
+
+    def __str__(self):
+
+        if self.medic is not None:
+            response = "{caller} calling {patient} at {time}".format(
+                caller=self.medic.get_full_name(),
+                patient=self.patient.get_full_name(),
+                time=self.created_at
+            )
+        elif self.clerk is not None:
+            response = "{caller} calling {patient} at {time}".format(
+                caller=self.clerk.get_full_name(),
+                patient=self.patient_name,
+                time=self.created_at
+            )
+        else:
+            response = "Undefined call at {time}".format(
+                time=self.created_at
+            )
+
         return response

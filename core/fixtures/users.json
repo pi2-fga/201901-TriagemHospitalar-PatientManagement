@@ -48,6 +48,7 @@
         "pk":2,
         "fields":{  
            "crm":"123",
+           "room":"01",
            "groups":[  
   
            ],
@@ -82,6 +83,7 @@
         "model":"users.clerk",
         "pk":3,
         "fields":{  
+           "window":"01",
            "groups":[  
   
            ],

@@ -1,0 +1,69 @@
+body {
+    /* background-color: #244793; */
+    background-image: url("/static/img/calls-background.jpg");
+    font-weight: bold;
+    text-align: center;
+}
+
+.calls-cards {
+    background: #45484d; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #45484d 0%, #000000 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.calls-text1 {
+    color: white;
+}
+
+.calls-text2 {
+    color: yellow;
+}
+
+.calls-text3 {
+    color: white;
+    font-size: 40pt;
+}
+
+.calls-text4 {
+    color: yellow;
+    font-size: 40pt;
+}
+
+
+.shadow {
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.shadow:before, .shadow:after {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+
+.shadow:after {
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+    -moz-transform:skew(8deg) rotate(3deg);
+    -ms-transform:skew(8deg) rotate(3deg);
+    -o-transform:skew(8deg) rotate(3deg);
+    transform:skew(8deg) rotate(3deg);
+}

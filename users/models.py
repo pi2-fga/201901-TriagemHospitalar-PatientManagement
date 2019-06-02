@@ -7,6 +7,7 @@ class Medic(User):
     Class that represents the medic.
     """
     crm = models.CharField(max_length=50)
+    room = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = "Medic"
@@ -23,6 +24,7 @@ class Clerk(User):
     """
     Class that represents the clerk.
     """
+    window = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = "Clerk"
