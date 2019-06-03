@@ -32,6 +32,17 @@ function playSound() {
     }
 }
 
+function textToSpeech(text) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.voiceURI = 'native';
+    msg.volume = 1; // 0 to 1
+    msg.rate = 1; // 0.1 to 10
+    msg.pitch = 0; //0 to 2
+    msg.text = text;
+    msg.lang = 'pt-BR';
+    speechSynthesis.speak(msg);
+}
+
 var last_call = null;
 
 function checkChanges() {
@@ -44,12 +55,40 @@ function checkChanges() {
                 if(last_call != data['calls'][0].time) {
                     last_call = data['calls'][0].time;
                     playSound();
+                    setTimeout(
+                        function() {
+                            textToSpeech(data['calls'][0].patient);
+                            textToSpeech(data['calls'][0].type);
+
+                            if(data['calls'][0].type == 'CADASTRAMENTO') {
+                                textToSpeech('Guichê ' + data['calls'][0].location);
+                            }
+                            else if(data['calls'][0].type == 'CONSULTA') {
+                                textToSpeech('Sala ' + data['calls'][0].location);
+                            }
+                        },
+                        500
+                    );
                 }
             }
 
             if(last_call != data['calls'][0].time) {
                 last_call = data['calls'][0].time;
                 playSound();
+                setTimeout(
+                    function() {
+                        textToSpeech(data['calls'][0].patient);
+                        textToSpeech(data['calls'][0].type);
+
+                        if(data['calls'][0].type == 'CADASTRAMENTO') {
+                            textToSpeech('Guichê ' + data['calls'][0].location);
+                        }
+                        else if(data['calls'][0].type == 'CONSULTA') {
+                            textToSpeech('Sala ' + data['calls'][0].location);
+                        }
+                    },
+                    500
+                );
             }
 
             // Last patient
