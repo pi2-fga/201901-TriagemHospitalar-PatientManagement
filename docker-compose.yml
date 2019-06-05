@@ -16,6 +16,7 @@ services:
       - DB_PASSWORD=password
       - DB_HOST=patient-management-db
       - DB_PORT=5432
+      - PROD=0
     volumes:
       - .:/code
     ports:
