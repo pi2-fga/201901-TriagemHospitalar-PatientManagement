@@ -464,12 +464,9 @@ def triage_information(request):
     print(request.body)
     if request.method == 'POST':
         data = request.body.decode('utf-8')
-        print('dataaaaaaaaaaaaaaaaaa')
-        print(data)
         received_json_data = json.loads(data)
-        print(received_json_data['triage'])
-        print('received_json_data')
         triage = Triage.objects.create(**received_json_data['triage'])
         triage.save()
-        return HttpResponse(triage, status_code=200)
+        return HttpResponse("Triagem salva com sucesso",
+                            content_type="text/plain", status=200)
     return None
