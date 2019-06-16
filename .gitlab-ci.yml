@@ -19,7 +19,9 @@ test:
     - apk add --no-cache --virtual .build-deps gcc python3-dev musl-dev postgresql-dev jpeg-dev zlib-dev
     - pip install toolz
     - pip install -r requirements.txt
-  script: pytest
+  script:
+    - pycodestyle --exclude='manage.py, patient-management/settings.py, */tests.py, */migrations' .
+    - pytest --cov=core --cov=users --cov=consultations --disable-warnings
 
 push to github:
   stage: push
