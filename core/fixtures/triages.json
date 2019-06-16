@@ -1,5 +1,5 @@
 [
-   {  
+   {
       "model":"consultations.triage",
       "pk":1,
       "fields": {
@@ -16,11 +16,10 @@
          "height":1.75,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
-         "ticket_number":123,
          "risk_level":0
       }
    },
-   {  
+   {
       "model":"consultations.triage",
       "pk":2,
       "fields": {
@@ -37,11 +36,10 @@
          "height":1.80,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
-         "ticket_number":123,
          "risk_level":3
       }
    },
-   {  
+   {
       "model":"consultations.triage",
       "pk":3,
       "fields": {
@@ -58,11 +56,10 @@
          "height":1.62,
          "created_at":"2019-01-01T18:50:00.000Z",
          "updated_at":"2019-01-01T18:50:00.000Z",
-         "ticket_number":123,
          "risk_level":3
       }
    },
-   {  
+   {
       "model":"consultations.triage",
       "pk":4,
       "fields": {
@@ -79,11 +76,10 @@
          "height":1.78,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
-         "ticket_number":123,
          "risk_level":1
       }
    },
-   {  
+   {
       "model":"consultations.triage",
       "pk":5,
       "fields": {
@@ -100,11 +96,10 @@
          "height":1.60,
          "created_at":"2019-01-01T19:10:00.000Z",
          "updated_at":"2019-01-01T19:10:00.000Z",
-         "ticket_number":123,
          "risk_level":1
       }
    },
-   {  
+   {
       "model":"consultations.triage",
       "pk":6,
       "fields": {
@@ -121,7 +116,6 @@
          "height":1.70,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
-         "ticket_number":123,
          "risk_level":2
       }
    }
