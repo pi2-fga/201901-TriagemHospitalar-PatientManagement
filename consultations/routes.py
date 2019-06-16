@@ -35,7 +35,8 @@ def patient_registration(request, triage):
         triage_information['name'] = triage.name
         triage_information['age'] = triage.age
         triage_information['risk'] = dict()
-        triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        triage_information['risk']['background_color'] = \
+            Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
         if triage.risk_level == 0:
             triage_information['risk']['text'] = 'VERMELHO'
             triage_information['risk']['text_color'] = 'white'
@@ -52,7 +53,10 @@ def patient_registration(request, triage):
 
         if request.method == 'POST':
 
-            form = PatientRegistrationForm(request.POST or None, request.FILES or None)
+            form = PatientRegistrationForm(
+                request.POST or None,
+                request.FILES or None
+            )
 
             if form.is_valid():
                 patient = form.save()
@@ -140,7 +144,8 @@ def patient_registration_keep_patient_data(request, triage, patient):
     return response
 
 
-@urlpatterns.route('cadastrar/' + triage_url + 'atualizar-existente/' + patient_url)
+@urlpatterns.route('cadastrar/' + triage_url + 'atualizar-existente/' +
+                   patient_url)
 def patient_registration_change_patient_data(request, triage, patient):
     """
     [...]
@@ -152,7 +157,8 @@ def patient_registration_change_patient_data(request, triage, patient):
         triage_information['name'] = triage.name
         triage_information['age'] = triage.age
         triage_information['risk'] = dict()
-        triage_information['risk']['background_color'] = Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
+        triage_information['risk']['background_color'] = \
+            Triage.TRIAGE_RISK_CATEGORIES[triage.risk_level][1]
         if triage.risk_level == 0:
             triage_information['risk']['text'] = 'VERMELHO'
             triage_information['risk']['text_color'] = 'white'
@@ -169,7 +175,11 @@ def patient_registration_change_patient_data(request, triage, patient):
 
         if request.method == 'POST':
 
-            form = PatientRegistrationForm(request.POST or None, request.FILES or None, instance=patient)
+            form = PatientRegistrationForm(
+                request.POST or None,
+                request.FILES or None,
+                instance=patient
+            )
 
             if form.is_valid():
 
@@ -198,18 +208,24 @@ def patient_registration_change_patient_data(request, triage, patient):
             patient_dict['identification'] = patient.identification
             patient_dict['birthdate'] = patient.birthdate.strftime('%Y-%m-%d')
             patient_dict['gender'] = patient.gender
-            patient_dict['telefone_number'] = patient.get_telefone_numbers()['fixo']
-            patient_dict['cellphone_number'] = patient.get_telefone_numbers()['celular']
+            patient_dict['telefone_number'] = \
+                patient.get_telefone_numbers()['fixo']
+            patient_dict['cellphone_number'] = \
+                patient.get_telefone_numbers()['celular']
             patient_dict['email'] = patient.email
             patient_dict['health_insurance'] = patient.health_insurance
             patient_dict['id_document'] = patient.id_document
-            patient_dict['health_insurance_document'] = patient.health_insurance_document
+            patient_dict['health_insurance_document'] = \
+                patient.health_insurance_document
 
             patient_documents = dict()
             patient_documents['id_document'] = \
                 patient.id_document.name.replace('static/images/', '')
             patient_documents['health_insurance_document'] = \
-                patient.health_insurance_document.name.replace('static/images/', '')
+                patient.health_insurance_document.name.replace(
+                    'static/images/',
+                    ''
+                )
 
             form = PatientRegistrationForm(patient_dict)
 
@@ -240,7 +256,11 @@ def patient_update(request, patient):
 
         if request.method == 'POST':
 
-            form = PatientRegistrationForm(request.POST or None, request.FILES or None, instance=patient)
+            form = PatientRegistrationForm(
+                request.POST or None,
+                request.FILES or None,
+                instance=patient
+            )
 
             if form.is_valid():
 
@@ -266,18 +286,24 @@ def patient_update(request, patient):
             patient_dict['identification'] = patient.identification
             patient_dict['birthdate'] = patient.birthdate.strftime('%Y-%m-%d')
             patient_dict['gender'] = patient.gender
-            patient_dict['telefone_number'] = patient.get_telefone_numbers()['fixo']
-            patient_dict['cellphone_number'] = patient.get_telefone_numbers()['celular']
+            patient_dict['telefone_number'] = \
+                patient.get_telefone_numbers()['fixo']
+            patient_dict['cellphone_number'] = \
+                patient.get_telefone_numbers()['celular']
             patient_dict['email'] = patient.email
             patient_dict['health_insurance'] = patient.health_insurance
             patient_dict['id_document'] = patient.id_document
-            patient_dict['health_insurance_document'] = patient.health_insurance_document
+            patient_dict['health_insurance_document'] = \
+                patient.health_insurance_document
 
             patient_documents = dict()
             patient_documents['id_document'] = \
                 patient.id_document.name.replace('static/images/', '')
             patient_documents['health_insurance_document'] = \
-                patient.health_insurance_document.name.replace('static/images/', '')
+                patient.health_insurance_document.name.replace(
+                    'static/images/',
+                    ''
+                )
 
             form = PatientRegistrationForm(patient_dict)
 
@@ -374,7 +400,10 @@ def patient_detail(request, patient):
 
         if request.method == 'POST':
 
-            form = ConsultationForm(request.POST or None, instance=consultation)
+            form = ConsultationForm(
+                request.POST or None,
+                instance=consultation
+            )
 
             if form.is_valid():
                 consultation = form.save(commit=False)

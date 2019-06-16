@@ -38,9 +38,21 @@ class Triage(models.Model):
     blood_pressure = models.CharField(max_length=200)  # Pair of values
     blood_oxygen_level = models.FloatField(null=True, blank=True)
     main_complaint = models.CharField(max_length=500)  # List of values
-    alergies = models.CharField(max_length=500, null=True, blank=True)  # List of values
-    continuos_medication = models.CharField(max_length=500, null=True, blank=True)  # List of values
-    previous_diagnosis = models.CharField(max_length=500, null=True, blank=True)  # List of values
+    alergies = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )  # List of values
+    continuos_medication = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )  # List of values
+    previous_diagnosis = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )  # List of values
     height = models.FloatField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -105,6 +117,7 @@ class Triage(models.Model):
         )
         return blood_pressure_formatted
 
+
 class Consultation(models.Model):
     """
     class that represent an emergency consultation with a medic
@@ -131,6 +144,7 @@ class Consultation(models.Model):
         else:
             response = "Patient not defined's consultation"
         return response
+
 
 class Call(models.Model):
     """
