@@ -46,6 +46,7 @@ def sign_in(request):
 
     return response
 
+
 @urlpatterns.route('encerrar-sessao/')
 def sign_out(request):
     """

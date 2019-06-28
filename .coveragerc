@@ -1,0 +1,15 @@
+[run]
+source =
+    users/
+
+omit =
+    */__init__.py
+    */admin.py
+    */migrations/*
+    */apps.py
+    */tests.py
+    */views.py
+    */forms.py
+
+[report]
+show_missing = True
