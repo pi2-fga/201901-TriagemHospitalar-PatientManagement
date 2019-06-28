@@ -55,6 +55,7 @@ class Triage(models.Model):
         blank=True,
         null=True
     )
+    eletrocardiogram = models.CharField(max_length=6000, null=True, blank=True)
 
     class Meta:
         verbose_name = "Triage"
@@ -104,6 +105,16 @@ class Triage(models.Model):
             blood_pressure[1]
         )
         return blood_pressure_formatted
+
+    def set_eletrocardiogram(self, x):
+        self.eletrocardiogram = json.dumps(x)
+
+    def get_eletrocardiogram(self):
+        if self.eletrocardiogram:
+            return json.loads(self.eletrocardiogram)
+        else:
+            return None
+
 
 class Consultation(models.Model):
     """

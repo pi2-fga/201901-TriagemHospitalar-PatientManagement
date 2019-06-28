@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 id="id_titulo" style="text-align:center; margin-top: 30px;">Eletrocardiograma de {{patient.get_full_name}}</h2>
+<canvas id="myChart" max-width="500px" min-height="500px" style="margin-top: 30px;"></canvas>
+<a class="btn btn-primary btn-lg" href="/paciente/consulta/{{ patient.pk }}/">Voltar para ficha do paciente</a>
+{% load static %}
+
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{time}},
+        datasets: [{
+            label: 'Eletrocardiograma',
+            data: {{eletrocardiogram}},
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+
+{% endblock %}

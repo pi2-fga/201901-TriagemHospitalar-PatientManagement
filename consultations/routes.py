@@ -7,7 +7,7 @@ from boogie.router import Router
 from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
 from consultations.models import Triage, Consultation, Patient, Call
-
+import numpy
 
 app_name = 'consultations'
 urlpatterns = Router(
@@ -412,6 +412,7 @@ def patient_detail(request, patient):
                 request,
                 'patient_detail.html',
                 {
+                    'has_eletrocardiogram': triage.get_eletrocardiogram,
                     'form': form,
                     'patient': patient,
                     'triage': triage,
@@ -421,6 +422,38 @@ def patient_detail(request, patient):
 
     else:
 
+        response = redirect('/')
+
+    return response
+
+
+@urlpatterns.route('eletrocardiograma/' + patient_url)
+def patient_eletrocardiogram(request, patient):
+    """
+    Renders a page with patient eletrocardiogram.
+    """
+
+    if hasattr(request.user, 'medic') or request.user.is_superuser:
+        triage = patient.triages.last()
+
+        if request.method == 'POST':
+            response = redirect('/paciente/consulta/' + patient.pk)
+
+        if request.method == 'GET':
+            eletrocardiogram = triage.get_eletrocardiogram()
+            count = len(eletrocardiogram)
+            x_list = list(numpy.arange(0, count*0.002, 0.002))
+            response = render(
+                request,
+                'patient_eletrocardiogram.html',
+                {
+                    'patient': patient,
+                    'eletrocardiogram': triage.get_eletrocardiogram(),
+                    'time': x_list
+                }
+            )
+
+    else:
         response = redirect('/')
 
     return response

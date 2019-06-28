@@ -6,3 +6,4 @@ pycpfcnpj
 pytest
 pytest-django
 Pillow
+numpy
