@@ -470,8 +470,7 @@ def patient_eletrocardiogram(request, patient):
 
         if request.method == 'GET':
             eletrocardiogram = triage.get_eletrocardiogram()
-            count = len(eletrocardiogram)
-            x_list = list(numpy.arange(0, count*0.002, 0.002))
+            x_list = list(numpy.arange(0, 1.0078125, 0.0078125))
             response = render(
                 request,
                 'patient_eletrocardiogram.html',
