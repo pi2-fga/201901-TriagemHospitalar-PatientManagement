@@ -532,12 +532,13 @@ def triage_information(request):
 
         if type(triage.alergies) is not list:
             triage.alergies = json.dumps([triage.alergies])
-        
+
         if type(triage.main_complaint) is not list:
             triage.main_complaint = json.dumps([triage.main_complaint])
 
         if type(triage.continuos_medication) is not list:
-            triage.continuos_medication = json.dumps([triage.continuos_medication])
+            triage.continuos_medication = \
+                json.dumps([triage.continuos_medication])
 
         triage.save()
 
