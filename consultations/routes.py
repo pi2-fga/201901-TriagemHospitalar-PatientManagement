@@ -462,16 +462,13 @@ def patient_eletrocardiogram(request, patient):
     """
     Renders a page with patient eletrocardiogram.
     """
-
     if hasattr(request.user, 'medic') or request.user.is_superuser:
         triage = patient.triages.last()
-
         if request.method == 'POST':
             response = redirect('/paciente/consulta/' + patient.pk)
-
         if request.method == 'GET':
-            eletrocardiogram = triage.get_eletrocardiogram()
-            x_list = list(numpy.arange(0, 1.0078125, 0.0078125))
+            time = len(triage.get_eletrocardiogram()) / 128
+            x_list = list(numpy.arange(0, time, 0.0078125))
             response = render(
                 request,
                 'patient_eletrocardiogram.html',
