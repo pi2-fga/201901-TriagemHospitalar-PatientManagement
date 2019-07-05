@@ -8,6 +8,7 @@ from consultations import models
 from consultations.forms import PatientRegistrationForm, ConsultationForm
 from consultations.models import Triage, Consultation, Patient, Call
 import numpy
+import json
 
 app_name = 'consultations'
 urlpatterns = Router(
@@ -528,6 +529,18 @@ def triage_information(request):
         received_json_data = json.loads(data)
         triage = Triage.objects.create(**received_json_data['triage'])
         triage.save()
+
+        if type(triage.alergies) is not list:
+            triage.alergies = json.dumps([triage.alergies])
+        
+        if type(triage.main_complaint) is not list:
+            triage.main_complaint = json.dumps([triage.main_complaint])
+
+        if type(triage.continuos_medication) is not list:
+            triage.continuos_medication = json.dumps([triage.continuos_medication])
+
+        triage.save()
+
         return HttpResponse("Triagem salva com sucesso",
                             content_type="text/plain", status=200)
     return None
