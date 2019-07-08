@@ -67,7 +67,7 @@ class Triage(models.Model):
         blank=True,
         null=True
     )
-    eletrocardiogram = models.CharField(max_length=6000, null=True, blank=True)
+    eletrocardiogram = models.TextField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Triage"
