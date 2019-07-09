@@ -53,7 +53,7 @@ class Triage(models.Model):
         null=True,
         blank=True
     )  # List of values
-    height = models.FloatField(null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     risk_level = models.IntegerField(

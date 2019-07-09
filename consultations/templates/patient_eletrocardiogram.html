@@ -2,7 +2,11 @@
 
 {% block content %}
 <h2 id="id_titulo" style="text-align:center; margin-top: 30px;">Eletrocardiograma de {{patient.get_full_name}}</h2>
-<canvas id="myChart" max-width="500px" min-height="500px" style="margin-top: 30px;"></canvas>
+{% if triage.eletrocardiogram != '-1000' %}
+    <canvas id="myChart" max-width="500px" min-height="500px" style="margin-top: 30px;"></canvas>
+{% else %}
+    <p>Erro na medição</p>
+{% endif %}
 <a class="btn btn-primary btn-lg" href="/paciente/consulta/{{ patient.pk }}/">Voltar para ficha do paciente</a>
 {% load static %}
 

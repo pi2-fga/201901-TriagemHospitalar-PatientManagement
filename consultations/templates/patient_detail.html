@@ -71,27 +71,47 @@
             <div class="row">
                 <div class="col-3">
                     <h6>Temperatura:</h6>
-                    <p>{{ triage.body_temperature }} ºC</p>
+                    {% if triage.body_temperature != -1000.0 %}
+                        <p>{{ triage.body_temperature }} ºC</p>
+                    {% else %}
+                        <p>Erro na medição</p>
+                    {% endif %}
                 </div>
                 <div class="col-3">
                     <div class="row">
                         <div class="col-6">
                             <h6>Massa:</h6>
-                            <p>{{ triage.body_mass }} kg</p>
+                            {% if triage.body_mass != -1000.0 %}
+                                <p>{{ triage.body_mass }} kg</p>
+                            {% else %}
+                                <p>Erro na medição</p>
+                            {% endif %}
                         </div>
                         <div class="col-6">
                             <h6>Altura:</h6>
-                            <p>{{ triage.height }} m</p>
+                            {% if triage.height != -1000 %}
+                                <p>{{ triage.height }} cm</p>
+                            {% else %}
+                                <p>Erro na medição</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
                     <h6>Pressão sanguínea:</h6>
-                    <p>{{ triage.get_blood_pressure_formatted }} mmHg</p>
+                    {% if triage.get_blood_pressure_formatted != '-1000' %}
+                        <p>{{ triage.get_blood_pressure_formatted }} mmHg</p>
+                    {% else %}
+                        <p>Erro na medição</p>
+                    {% endif %}
                 </div>
                 <div class="col-3">
                     <h6>Oximetria:</h6>
-                    <p>{{ triage.blood_oxygen_level }}%</p>
+                    {% if triage.blood_oxygen_level != -1000.0 %}
+                        <p>{{ triage.blood_oxygen_level }}%</p>
+                    {% else %}
+                        <p>Erro na medição</p>
+                    {% endif %}
                 </div>
             </div>
 

@@ -13,7 +13,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.75,
+         "height":175,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
          "risk_level":0
@@ -33,7 +33,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.80,
+         "height":180,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
          "risk_level":3
@@ -53,7 +53,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.62,
+         "height":162,
          "created_at":"2019-01-01T18:50:00.000Z",
          "updated_at":"2019-01-01T18:50:00.000Z",
          "risk_level":3
@@ -73,7 +73,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.78,
+         "height":178,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
          "risk_level":1
@@ -93,7 +93,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.60,
+         "height":160,
          "created_at":"2019-01-01T19:10:00.000Z",
          "updated_at":"2019-01-01T19:10:00.000Z",
          "risk_level":1
@@ -113,7 +113,7 @@
          "alergies":"[\"Dipirona\", \"Amoxilina\"]",
          "continuos_medication":"[\"Colaxalozam\", \"Alprazolam\"]",
          "previous_diagnosis":"[\"Enxaqueca\"]",
-         "height":1.70,
+         "height":170,
          "created_at":"2019-01-01T19:00:00.000Z",
          "updated_at":"2019-01-01T19:00:00.000Z",
          "risk_level":2

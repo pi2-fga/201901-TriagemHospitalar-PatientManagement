@@ -467,13 +467,17 @@ def patient_eletrocardiogram(request, patient):
         if request.method == 'POST':
             response = redirect('/paciente/consulta/' + patient.pk)
         if request.method == 'GET':
-            time = len(triage.get_eletrocardiogram()) / 128
+            try:
+                time = len(triage.get_eletrocardiogram()) / 128
+            except TypeError:
+                time = None
             x_list = list(numpy.arange(0, time, 0.0078125))
             response = render(
                 request,
                 'patient_eletrocardiogram.html',
                 {
                     'patient': patient,
+                    'triage': triage,
                     'eletrocardiogram': triage.get_eletrocardiogram(),
                     'time': x_list
                 }
